@@ -1,6 +1,7 @@
 import re
 
-from src.get_api import GetAPI
+from src.abc_get_api import GetAPI
+from src.abc_save import Save_Vacancies
 
 
 class Vacancy:
@@ -76,11 +77,11 @@ class Vacancy:
 
 
 
-class Vacancies(GetAPI):
+class Vacancies(GetAPI, Save_Vacancies):
     """ Содержит загруженные по API вакансии"""
-    def __init__(self):
+    def __init__(self,file_name:str):
         self.__vacancies = []
-        super().__init__()
+        super().__init__(file_name)
 
     
     @property
@@ -139,24 +140,18 @@ class Vacancies(GetAPI):
         self.__vacancies = []
         #del self.vacancies_data
 
+    def add(self):
+        pass
+
+    def read(self):
+        pass
+
+    def remove(self):
+        pass
 
 
 
 
 
 
-x = Vacancies()
-#del x.vacancies
-x.load_vacancies('бухгалтер')
 
-
-print(x.vacancies_data)
-print(x.vacancies)
-for v in x.vacancies:
-    print(v.name, ' - ',v.snippet, v.salary_from, '-' , v.salary_to, v.currency,  v.address, v.schedule, v.url)
-
-del x.vacancies
-print(x.vacancies)
-
-
-print(v.compare_vacancies(v))

@@ -1,4 +1,4 @@
-from src.get_api import GetAPI
+from src.abc_get_api import GetAPI
 import pytest
 
 class Test_GetAPI(GetAPI):

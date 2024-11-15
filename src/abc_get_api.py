@@ -8,12 +8,13 @@ class GetAPI(ABC):
     """абстрактный класс для работы с API сервиса с вакансиями.
     создаст объект: список словарей с данными"""
 
-    def __init__(self):
+    def __init__(self,file_name:str):
         self.url = 'https://api.hh.ru/vacancies'
         self.headers = {'User-Agent': 'HH-User-Agent'}
         self.params = {'text': '', 'page': 0, 'per_page': 2, 'area': 113}
         self.status:int = 0
         self.__vacancies: list = []
+        super().__init__(file_name)
 
 
     def load_vacancies(self, keyword):
