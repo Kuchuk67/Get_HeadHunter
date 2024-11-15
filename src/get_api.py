@@ -45,3 +45,7 @@ class GetAPI(ABC):
         """ метод выводит полученные по API вакансии"""
         return self.__vacancies
 
+    @vacancies_data.deleter
+    def vacancies_data(self):
+        self.__vacancies = []
+
