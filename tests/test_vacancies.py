@@ -25,3 +25,9 @@ def test_vacancies(mock_get):
     del test_object.vacancies
     del test_object.vacancies_data
     assert test_object.vacancies == []
+
+def test_compare_vacancies():
+    a = Vacancy('Дворник', 12000, 15000, 'RU','Смоленск', '', 'Чисто подметать двор', '')
+    b = Vacancy('Дворник', 30000, 50000, 'RU', 'Смоленск', '', 'Не пить на работе', '')
+    assert a.compare_vacancies(b) == False
+    assert b.compare_vacancies(a) == True

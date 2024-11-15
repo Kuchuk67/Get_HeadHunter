@@ -58,6 +58,23 @@ class Vacancy:
             snippet = ''
         return snippet
 
+    @staticmethod
+    def average(from_, to_):
+        if from_ == 0:
+            from_ = to_
+        if to_ == 0:
+            to_ = from_
+        return (from_ + to_) // 2
+
+
+    def compare_vacancies(self, other):
+        salary_1 = Vacancy.average(self.__salary_from, self.__salary_to)
+        salary_2 = Vacancy.average(other.__salary_from, other.__salary_to)
+        if salary_1 > salary_2:
+            return True
+        return False
+
+
 
 class Vacancies(GetAPI):
     """ Содержит загруженные по API вакансии"""
@@ -126,6 +143,8 @@ class Vacancies(GetAPI):
 
 
 
+
+
 x = Vacancies()
 #del x.vacancies
 x.load_vacancies('бухгалтер')
@@ -138,3 +157,6 @@ for v in x.vacancies:
 
 del x.vacancies
 print(x.vacancies)
+
+
+print(v.compare_vacancies(v))
