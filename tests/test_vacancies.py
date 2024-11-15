@@ -11,7 +11,7 @@ def test_vacancies(mock_get):
 'published_at': '2024-11-14T16:18:47+0300',
 'url': 'https://api.hh.ru/vacancies/110985627?host=hh.ru',
 'snippet': {'requirement': 'Опыт работы главным <highlighttext>бухгалтером</highlighttext>',} }]}
-    test_object = Vacancies()
+    test_object = Vacancies('111.json')
     test_object.load_vacancies('Бухгалтер')
 
 

@@ -13,7 +13,7 @@ class GetAPI(ABC):
         self.headers = {'User-Agent': 'HH-User-Agent'}
         self.params = {'text': '', 'page': 0, 'per_page': 2, 'area': 113}
         self.status:int = 0
-        self.__vacancies: list = []
+        self.__vacancies_data: list = []
         super().__init__(file_name)
 
 
@@ -29,11 +29,11 @@ class GetAPI(ABC):
                     break
                 time.sleep(3)
             if self.status != 200:
-                self.__vacancies = []
+                self.__vacancies_data = []
                 break
 
             vacancies_page = response.json()['items']
-            self.__vacancies.extend(vacancies_page)
+            self.__vacancies_data.extend(vacancies_page)
 
             self.params['page'] += 1
 
@@ -45,9 +45,9 @@ class GetAPI(ABC):
     @property
     def vacancies_data(self):
         """ метод выводит полученные по API вакансии"""
-        return self.__vacancies
+        return self.__vacancies_data
 
     @vacancies_data.deleter
     def vacancies_data(self):
-        self.__vacancies = []
+        self.__vacancies_data = []
 
