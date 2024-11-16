@@ -46,14 +46,16 @@ class ListVacancies(GetAPI):
                 else:
                     schedule = ""
                 try:
-                    self.__vacancies.append(Vacancy(vacancy.get('name'),
+                    self.__vacancies.append(Vacancy(vacancy.get('id'),
+                                                vacancy.get('name'),
                                                 salary_from,
                                                 salary_to,
                                                 currency,
                                                 address,
                                                 vacancy.get('url'),
                                                 snippet,
-                                                schedule
+                                                schedule,
+                                                vacancy.get('published_at'),
                                                 ))
                 except ValueError as txt:
                     print(f"Вакансия не добавлена: {txt}")
@@ -69,3 +71,15 @@ class ListVacancies(GetAPI):
         '''Удаляет все вакансии'''
         self.__vacancies = []
         # del self.vacancies_data
+
+
+    def vacancy_del(self, id_v):
+        '''Удаляет  вакансию'''
+
+        for index, object_vacancy in enumerate(self.vacancies):
+            print(index," - ",object_vacancy.id_v)
+            if object_vacancy.id_v == id_v:
+                del self.vacancies[index]
+                break
+
+

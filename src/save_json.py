@@ -45,7 +45,7 @@ class SaveJSON(Save_Vacancies):
             from _typeshed import SupportsRead
             files: SupportsRead[str | bytes]
 
-        with open(self.file_name) as files:
+        with open(self.file_name, encoding='utf-8') as files:
             data = json.load(files)
 
         # print(data)
@@ -55,6 +55,7 @@ class SaveJSON(Save_Vacancies):
             #print(',', dict_vacancy)
             try:
                 self.vacancies = Vacancy(
+                    dict_vacancy.get('_Vacancy__id_v'),
                      dict_vacancy.get('_Vacancy__name'),
                      dict_vacancy.get('_Vacancy__salary_from'),
                      dict_vacancy.get('_Vacancy__salary_to'),
@@ -62,7 +63,8 @@ class SaveJSON(Save_Vacancies):
                      dict_vacancy.get('_Vacancy__address'),
                      dict_vacancy.get('_Vacancy__url'),
                      dict_vacancy.get('_Vacancy__snippet'),
-                     dict_vacancy.get('_Vacancy__schedule')  )
+                     dict_vacancy.get('_Vacancy__schedule') ,
+                    dict_vacancy.get('_Vacancy__date')    )
             except ValueError as txt:
                 print(f"Вакансия не добавлена: {txt}")
 

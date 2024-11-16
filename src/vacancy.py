@@ -3,7 +3,8 @@ import re
 
 class Vacancy:
     '''Класс вакансии. Объект содежит данные по одной вакансии'''
-    def __init__(self,name, salary_from, salary_to, currency,  address, url, snippet, schedule):
+    def __init__(self, id_v,  name, salary_from, salary_to, currency,  address, url, snippet, schedule, date):
+        self.__id_v:int = id_v
         self.__name:str = name
         if salary_from:
             self.__salary_from:int = salary_from
@@ -14,14 +15,20 @@ class Vacancy:
         else:
             self.__salary_to = 0
 
-
+        self.__salary_average: int = Vacancy.average(self.__salary_from, self.__salary_to)
         self.__address:str = address
         self.__url:str = url
         self.__snippet:str = snippet
         self.__schedule:str = schedule
         self.__currency:str  = currency
+        self.__date: str = date
+
         if not name  or not url:
             raise ValueError("Ошибка создания вакансии")
+
+    @property
+    def id_v(self):
+        return self.__id_v
 
     @property
     def name(self):
@@ -34,6 +41,10 @@ class Vacancy:
     @property
     def salary_to(self):
         return self.__salary_to
+
+    @property
+    def salary_average(self):
+        return self.__salary_average
 
     @property
     def currency(self):
@@ -50,6 +61,10 @@ class Vacancy:
     @property
     def schedule(self):
         return self.__schedule
+
+    @property
+    def date(self):
+        return self.__date
 
     @property
     def snippet(self):

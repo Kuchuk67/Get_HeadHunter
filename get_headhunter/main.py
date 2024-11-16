@@ -10,22 +10,25 @@ def main():
 
     #print(x.vacancies_data)
     #print(x.vacancies)
-    #for v in x.vacancies:
-     #   print(v.name, ' - ', v.snippet, v.salary_from, '-', v.salary_to, v.currency, v.address, v.schedule, v.url)
+    for v in x.vacancies:
+        print(v.id_v, v.name, ' - ', v.snippet, v.salary_from, '-', v.salary_to, v.currency, v.address, v.schedule, v.url)
 
     #del x.vacancies
     #print(x.vacancies)
 
-    #a = SaveJSON.data_json(x.vacancies)
-    x.save()
+    #x.remove()
+
+    #x.save()
 
     #x.read()
     #print(x.vacancies)
 
-    for v in x.vacancies:
-        print(v.name, ' - ', v.snippet, v.salary_from, '-', v.salary_to, v.currency, v.address, v.schedule, v.url)
+    #x.vacancy_del('https://api.hh.ru/vacancies/111052269?host=hh.ru')
 
-    #x.remove()
+    for v in x.vacancies:
+        print(v.id_v, v.name, ' - ', v.snippet,  v.salary_average, v.currency, v.address, v.schedule, v.url, v.date)
+
+
 
 if __name__ == "__main__":
     main()
