@@ -29,9 +29,9 @@ class Save_Vacancies(ABC):
         ''' Читает вакансии из файла '''
         pass
 
-    @abstractmethod
+
     def remove(self):
-        ''' Удаляет вакансии из файла '''
-        pass
+        ''' Удаляет файл '''
+        os.remove(self.file_name)
 
 

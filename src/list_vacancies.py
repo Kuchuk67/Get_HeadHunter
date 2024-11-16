@@ -45,8 +45,8 @@ class ListVacancies(GetAPI):
                     schedule = f"{vacancy.get('schedule').get('name')}"
                 else:
                     schedule = ""
-
-                self.__vacancies.append(Vacancy(vacancy.get('name'),
+                try:
+                    self.__vacancies.append(Vacancy(vacancy.get('name'),
                                                 salary_from,
                                                 salary_to,
                                                 currency,
@@ -55,8 +55,14 @@ class ListVacancies(GetAPI):
                                                 snippet,
                                                 schedule
                                                 ))
+                except ValueError as txt:
+                    print(f"Вакансия не добавлена: {txt}")
 
         return self.__vacancies
+
+    @vacancies.setter
+    def vacancies(self, data):
+        self.__vacancies.append(data)
 
     @vacancies.deleter
     def vacancies(self):

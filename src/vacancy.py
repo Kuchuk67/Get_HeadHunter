@@ -5,20 +5,23 @@ class Vacancy:
     '''Класс вакансии. Объект содежит данные по одной вакансии'''
     def __init__(self,name, salary_from, salary_to, currency,  address, url, snippet, schedule):
         self.__name:str = name
-        if salary_to:
-            self.__salary_to:int = salary_to
-        else:
-            self.__salary_to = 0
         if salary_from:
             self.__salary_from:int = salary_from
         else:
             self.__salary_from = 0
+        if salary_to:
+            self.__salary_to:int = salary_to
+        else:
+            self.__salary_to = 0
+
 
         self.__address:str = address
         self.__url:str = url
         self.__snippet:str = snippet
         self.__schedule:str = schedule
         self.__currency:str  = currency
+        if not name  or not url:
+            raise ValueError("Ошибка создания вакансии")
 
     @property
     def name(self):
