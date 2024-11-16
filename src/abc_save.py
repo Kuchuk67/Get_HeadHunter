@@ -6,6 +6,8 @@ import os
 class Save_Vacancies(ABC):
 
     def __init__(self, file_name:str):
+        if not os.path.exists(os.path.join(PATH_HOME, "data")):
+            os.mkdir(os.path.join(PATH_HOME, "data"))
         self._path_to_file = os.path.join(PATH_HOME, "data", file_name)
         super().__init__()
 

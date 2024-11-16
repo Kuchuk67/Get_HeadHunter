@@ -16,9 +16,10 @@ def main():
     del x.vacancies
     print(x.vacancies)
 
-    a = SaveJSON.data_json(x.vacancies)
-    print(a)
+    #a = SaveJSON.data_json(x.vacancies)
+    #x.save()
 
+    x.read()
 
 if __name__ == "__main__":
     main()
