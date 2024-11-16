@@ -6,7 +6,7 @@ def main():
 
 
     x = Vacancies('111.json')
-    x.load_vacancies('бухгалтер')
+    #x.load_vacancies('бухгалтер')
 
     #print(x.vacancies_data)
     #print(x.vacancies)
@@ -20,13 +20,19 @@ def main():
 
     #x.save()
 
-    #x.read()
+    x.read()
     #print(x.vacancies)
 
     #x.vacancy_del('https://api.hh.ru/vacancies/111052269?host=hh.ru')
-
+    x.sort_date()
     for v in x.vacancies:
-        print(v.id_v, v.name, ' - ', v.snippet,  v.salary_average, v.currency, v.address, v.schedule, v.url, v.date)
+        print(v.id_v,  v.salary_average, v.name, ' - ', v.snippet, v.currency, v.address, v.schedule, v.url, v.date)
+
+    #print(x.vacancies)
+
+    #sorted_list = sorted(n_list, key=lambda x: int(x[0:]))
+    #q = sorted(x.vacancies, key = lambda y: y.id_v )
+
 
 
 

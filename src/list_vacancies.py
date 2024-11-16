@@ -2,14 +2,16 @@ from src.vacancy import Vacancy
 from src.abc_get_api import GetAPI
 
 class ListVacancies(GetAPI):
+    """Формирует из данных полученных по API  список с объектами вакансий,
+добавляет объекты, сортирует список, удаляет объекты из списка"""
     
     def __init__(self):
         self.__vacancies = []
         super().__init__()
 
     @property
-    def vacancies(self):
-        '''Отдает список объектов с вакансиями'''
+    def vacancies(self) -> list:
+        """Отдает список объектов с вакансиями"""
         if self.__vacancies == [] and not self.vacancies_data == []:
             for vacancy in self.vacancies_data:
 
@@ -68,18 +70,29 @@ class ListVacancies(GetAPI):
 
     @vacancies.deleter
     def vacancies(self):
-        '''Удаляет все вакансии'''
+        """Удаляет все вакансии"""
         self.__vacancies = []
         # del self.vacancies_data
 
 
-    def vacancy_del(self, id_v):
-        '''Удаляет  вакансию'''
-
+    def vacancy_del(self, id_v) -> None:
+        """Удаляет  вакансию"""
         for index, object_vacancy in enumerate(self.vacancies):
-            print(index," - ",object_vacancy.id_v)
+            #print(index," - ",object_vacancy.id_v)
             if object_vacancy.id_v == id_v:
                 del self.vacancies[index]
                 break
+
+
+    def sort_date(self) -> None:
+        """ Сортирует список вакансий по дате """
+        sort_vacancies = sorted(self.vacancies, key=lambda x: x.date, reverse=True)
+        self.__vacancies = sort_vacancies
+
+
+    def sort_salary(self) -> None:
+        """ Сортирует список вакансий по зарплате """
+        sort_vacancies = sorted(self.vacancies,  key=lambda x: x.salary_average, reverse=False)
+        self.__vacancies = sort_vacancies
 
 
