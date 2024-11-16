@@ -1,4 +1,5 @@
-from src.vacancies import Vacancies, Vacancy
+from src.vacancies import Vacancies
+from src.vacancy import Vacancy
 from unittest.mock import patch
 
 @patch("requests.get")

@@ -1,8 +1,11 @@
 from src.vacancies import Vacancies
+from src.abc_get_api import GetAPI
+from src.save_json import SaveJSON
 
 def main():
+
+
     x = Vacancies('111.json')
-    # del x.vacancies
     x.load_vacancies('бухгалтер')
 
     print(x.vacancies_data)
@@ -13,7 +16,9 @@ def main():
     del x.vacancies
     print(x.vacancies)
 
-    print(v.compare_vacancies(v))
+    a = SaveJSON.data_json(x.vacancies)
+    print(a)
+
 
 if __name__ == "__main__":
     main()
