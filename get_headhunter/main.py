@@ -28,7 +28,7 @@ def main():
     for v in x.vacancies:
         print(v.id_v,  v.salary_average, v.name, ' - ', v.snippet, v.currency, v.address, v.schedule, v.url, v.date)
 
-    #print(x.vacancies)
+    print(x)
 
     #sorted_list = sorted(n_list, key=lambda x: int(x[0:]))
     #q = sorted(x.vacancies, key = lambda y: y.id_v )
