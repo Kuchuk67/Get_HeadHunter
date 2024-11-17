@@ -3,7 +3,7 @@ import re
 
 class Vacancy:
     '''Класс вакансии. Объект содежит данные по одной вакансии'''
-    def __init__(self, id_v,  name, salary_from, salary_to, currency,  address, url, snippet, schedule, date):
+    def __init__(self, id_v,  name, salary_from, salary_to, currency,  url, date, additionally):
         self.__id_v:int = id_v
         self.__name:str = name
         if salary_from:
@@ -14,14 +14,17 @@ class Vacancy:
             self.__salary_to:int = salary_to
         else:
             self.__salary_to = 0
-
         self.__salary_average: int = Vacancy.average(self.__salary_from, self.__salary_to)
-        self.__address:str = address
-        self.__url:str = url
-        self.__snippet:str = snippet
-        self.__schedule:str = schedule
-        self.__currency:str  = currency
+        self.__url: str = url
+        self.__currency: str = currency
         self.__date: str = date
+        self.__additionally: dict = additionally
+
+        #self.__address:str = address
+        #self.__snippet:str = snippet
+        #self.__schedule:str = schedule
+
+
 
         if not name  or not url:
             raise ValueError("Ошибка создания вакансии")
@@ -50,29 +53,27 @@ class Vacancy:
     def currency(self):
         return self.__currency
 
-    @property
-    def address(self):
-        return self.__address
+
 
     @property
     def url(self):
         return self.__url
 
     @property
-    def schedule(self):
-        return self.__schedule
+    def additionally(self):
+        return self.__additionally
 
     @property
     def date(self):
         return self.__date
 
-    @property
-    def snippet(self):
-        if self.__snippet:
-            snippet = re.sub('(<(/?[^>]+)>)', '', self.__snippet)
-        else:
-            snippet = ''
-        return snippet
+    #@property
+    #def snippet(self):
+     #   if self.__snippet:
+     #       snippet = re.sub('(<(/?[^>]+)>)', '', self.__snippet)
+      #  else:
+      #      snippet = ''
+      #  return snippet
 
     @staticmethod
     def average(from_, to_):

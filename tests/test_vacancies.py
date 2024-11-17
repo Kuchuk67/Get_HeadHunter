@@ -19,9 +19,11 @@ def test_vacancies(mock_get):
 
 
     assert test_object.vacancies[0].name == 'Главный бухгалтер'
-    assert test_object.vacancies[1].address == 'Москва, Московский международный деловой центр Москва-Сити'
+   # assert test_object.vacancies[1].address == 'Москва, Московский международный деловой центр Москва-Сити'
     assert test_object.vacancies[0].url == 'https://api.hh.ru/vacancies/110985627?host=hh.ru'
-    assert test_object.vacancies[1].snippet == 'Опыт работы главным бухгалтером'
+    assert test_object.vacancies[1].additionally == {'snippet': 'Опыт работы главным бухгалтером',
+                                                     'schedule': '',
+                                                     'address': 'Москва, Московский международный деловой центр Москва-Сити'}
 
     a = len(test_object.vacancies)
     test_object.vacancy_del(12345)
@@ -35,15 +37,15 @@ def test_vacancies(mock_get):
     assert test_object.vacancies == []
 
 def test_compare_vacancies():
-    a = Vacancy(1, 'Дворник', 12000, 15000, 'RU','Смоленск', 'http://#', 'Чисто подметать двор', '','2024-02-16T14:58:28+0300')
-    b = Vacancy(2, 'Дворник', 30000, 50000, 'RU', 'Смоленск', 'http://#', 'Не пить на работе', '','2024-02-16T14:58:28+0300')
+    a = Vacancy(1, 'Дворник', 12000, 15000, 'RU','http://#','2024-02-16T14:58:28+0300',{'snippet': 'Чисто подметать двор', 'schedule': 'Без выходных>', 'address': 'Москва, улица Шаболовка'} )
+    b = Vacancy(2, 'Дворник', 30000, 50000, 'RU', 'http://#','2024-02-16T14:58:28+0300', {'snippet': 'Не пить на работе', 'schedule': 'Без выходных>', 'address': 'Смоленск'} )
     assert a.compare_vacancies(b) == False
     assert b.compare_vacancies(a) == True
     with pytest.raises(ValueError):
         c = Vacancy(3, 'Дворник', 30000, 50000, 'RU',
-                    'Смоленск', '', 'Не пить на работе',
-                    '',   '2024-02-16T14:58:28+0300')
+                    '', '2024-02-16T14:58:28+0300',
+                    {'snippet': 'Не пить на работе', 'schedule': 'Без выходных>', 'address': 'Смоленск'})
     with pytest.raises(ValueError):
         d = Vacancy(4, '', 30000, 50000, 'RU',
-                    'Смоленск', '1242', 'Не пить на работе',
-                    '',   '2024-02-16T14:58:28+0300')
+                    'http:/#', '2024-02-16T14:58:28+0300',
+                    {'snippet': 'Не пить на работе', 'schedule': 'Без выходных>', 'address': 'Смоленск'})

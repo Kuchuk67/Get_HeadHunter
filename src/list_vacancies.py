@@ -1,5 +1,6 @@
 from src.vacancy import Vacancy
 from src.abc_get_api import GetAPI
+import re
 
 class ListVacancies(GetAPI):
     """Формирует из данных полученных по API  список с объектами вакансий,
@@ -15,10 +16,7 @@ class ListVacancies(GetAPI):
         if self.__vacancies == [] and not self.vacancies_data == []:
             for vacancy in self.vacancies_data:
 
-                if vacancy.get('address'):
-                    address = f"{vacancy.get('address').get('city')}, {vacancy.get('address').get('street')}"
-                else:
-                    address = ""
+
                 # dict_salary = vacancy.get('salary')
                 if vacancy.get('salary'):
                     salary_to = vacancy.get('salary', "0").get('to', "0")
@@ -38,8 +36,12 @@ class ListVacancies(GetAPI):
                     salary_from = 0
                     currency = ''
 
+
+
+
                 if vacancy.get('snippet'):
                     snippet = f"{vacancy.get('snippet').get('requirement')}"
+                    snippet = re.sub('(<(/?[^>]+)>)', '', snippet)
                 else:
                     snippet = ""
 
@@ -47,17 +49,24 @@ class ListVacancies(GetAPI):
                     schedule = f"{vacancy.get('schedule').get('name')}"
                 else:
                     schedule = ""
+
+                if vacancy.get('address'):
+                    address = f"{vacancy.get('address').get('city')}, {vacancy.get('address').get('street')}"
+                else:
+                    address = ""
+
+                additionally = {'snippet':snippet,'schedule':schedule,'address':address}
+
+
                 try:
                     self.__vacancies.append(Vacancy(vacancy.get('id'),
                                                 vacancy.get('name'),
                                                 salary_from,
                                                 salary_to,
                                                 currency,
-                                                address,
                                                 vacancy.get('url'),
-                                                snippet,
-                                                schedule,
                                                 vacancy.get('published_at'),
+                                                additionally
                                                 ))
                 except ValueError as txt:
                     print(f"Вакансия не добавлена: {txt}")

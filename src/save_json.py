@@ -60,11 +60,9 @@ class SaveJSON(Save_Vacancies):
                      dict_vacancy.get('_Vacancy__salary_from'),
                      dict_vacancy.get('_Vacancy__salary_to'),
                      dict_vacancy.get('_Vacancy__currency'),
-                     dict_vacancy.get('_Vacancy__address'),
                      dict_vacancy.get('_Vacancy__url'),
-                     dict_vacancy.get('_Vacancy__snippet'),
-                     dict_vacancy.get('_Vacancy__schedule') ,
-                    dict_vacancy.get('_Vacancy__date')    )
+                     dict_vacancy.get('_Vacancy__date'),
+                     dict_vacancy.get('_Vacancy__additionally'),    )
             except ValueError as txt:
                 print(f"Вакансия не добавлена: {txt}")
 
