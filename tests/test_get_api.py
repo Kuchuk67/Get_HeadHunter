@@ -11,6 +11,9 @@ def test_class_get_api(mock_get, test_object):
     test_object.load_vacancies('Бухгалтер')
     assert  test_object.vacancies_data == [
         {'id': '93353083', 'premium': False, 'name': 'Тестировщик комфорта квартир'},
+        {'id': '93353083', 'premium': False, 'name': 'Тестировщик комфорта квартир'},
+        {'id': '93353083', 'premium': False, 'name': 'Тестировщик комфорта квартир'},
+        {'id': '93353083', 'premium': False, 'name': 'Тестировщик комфорта квартир'},
         {'id': '93353083', 'premium': False, 'name': 'Тестировщик комфорта квартир'}
     ]
 

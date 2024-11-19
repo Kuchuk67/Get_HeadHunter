@@ -1,10 +1,14 @@
-from src.get_api import GetAPI
+from src1.abc_get_api import GetAPI
+from src1.abc_save import Save_Vacancies
 import pytest
 
-class Test_GetAPI(GetAPI):
-    def vacancies(self):
-        pass
+from src1.list_vacancies import ListVacancies
+from src1.save_json import SaveJSON
+
+
+class TestGetAPI(SaveJSON, ListVacancies):
+    pass
 
 @pytest.fixture
 def test_object():
-    return Test_GetAPI()
+    return TestGetAPI('111.json')
