@@ -1,8 +1,8 @@
-from src.abc_save import Save_Vacancies
+from src1.abc_save import Save_Vacancies
 import json
 import typing
 
-from src.vacancy import Vacancy
+from src1.vacancy import Vacancy
 
 
 class SaveJSON(Save_Vacancies):

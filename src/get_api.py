@@ -1,18 +1,12 @@
 import requests
 import time
 
-from abc import ABC, abstractmethod
 
-
-
-
-#from src.vacancies import Vacancy
-
-class GetAPI(ABC):
-    """абстрактный класс для работы с API сервиса с вакансиями.
+class GetAPI:
+    """ отправляет запрос для получения данных API
     создаст объект: список словарей с данными"""
 
-    def __init__(self):
+    def __init__(self, keyword):
         self.url = 'https://api.hh.ru/vacancies'
         self.headers = {'User-Agent': 'HH-User-Agent'}
         self.params = {'text': '', 'page': 0, 'per_page': 100, 'area': 113}
@@ -21,8 +15,6 @@ class GetAPI(ABC):
 
 
 
-
-    def load_vacancies(self, keyword):
         self.params['page'] = 0
         self.params['text'] = keyword
 
@@ -42,9 +34,9 @@ class GetAPI(ABC):
 
             self.params['page'] += 1
 
-    @abstractmethod
-    def vacancies(self):
-        pass
+
+
+
 
 
 
