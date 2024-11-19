@@ -1,9 +1,9 @@
-from src1.vacancy import Vacancy
-from src1.abc_get_api import GetAPI
+from src.vacancy import Vacancy
+from src.abc_get_api import GetAPI
 import re
 
 
-class ListVacancies(GetAPI):
+class ListVacancies():
     """Формирует из данных полученных по API  список с объектами вакансий,
 добавляет объекты, сортирует список, удаляет объекты из списка"""
 

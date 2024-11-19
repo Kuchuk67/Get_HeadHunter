@@ -1,6 +1,3 @@
-import re
-
-
 class Vacancy:
     '''Класс вакансии. Объект содежит данные по одной вакансии'''
     def __init__(self, id_v,  name, salary_from, salary_to, currency,  url, date, additionally):
