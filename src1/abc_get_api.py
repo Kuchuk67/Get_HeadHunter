@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 
 
 
-#from src.vacancies import Vacancy
+#from src1.vacancies import Vacancy
 
 class GetAPI(ABC):
     """абстрактный класс для работы с API сервиса с вакансиями.

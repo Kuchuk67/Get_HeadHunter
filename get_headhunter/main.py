@@ -1,14 +1,14 @@
-from src.vacancies import Vacancies
-from src.abc_get_api import GetAPI
-from src.save_json import SaveJSON
+from src1.vacancies import Vacancies
+from src1.abc_get_api import GetAPI
+from src1.save_json import SaveJSON
 
 def main():
 
 
     x = Vacancies('111.json')
-    #x.load_vacancies('бухгалтер')
+    x.load_vacancies('бухгалтер')
 
-    #print(x.vacancies_data)
+    print(x.vacancies_data)
     #print(x.vacancies)
 
     #del x.vacancies

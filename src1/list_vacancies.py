@@ -1,5 +1,5 @@
-from src.vacancy import Vacancy
-from src.abc_get_api import GetAPI
+from src1.vacancy import Vacancy
+from src1.abc_get_api import GetAPI
 import re
 
 class ListVacancies(GetAPI):

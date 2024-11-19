@@ -1,7 +1,7 @@
 import pytest
 
-from src.vacancies import Vacancies
-from src.vacancy import Vacancy
+from src1.vacancies import Vacancies
+from src1.vacancy import Vacancy
 from unittest.mock import patch
 
 @patch("requests.get")

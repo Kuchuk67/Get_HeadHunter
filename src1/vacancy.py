@@ -30,11 +30,11 @@ class Vacancy:
             raise ValueError("Ошибка создания вакансии")
 
     @property
-    def id_v(self):
+    def id_v(self) -> int:
         return self.__id_v
 
     @property
-    def name(self):
+    def name(self) -> str:
         return self.__name
 
     @property
