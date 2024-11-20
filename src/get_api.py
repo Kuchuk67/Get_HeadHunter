@@ -41,11 +41,11 @@ class GetAPI:
 
 
     @property
-    def vacancies_data(self):
+    def data(self):
         """ метод выводит полученные по API вакансии"""
         return self.__vacancies_data
 
-    @vacancies_data.deleter
-    def vacancies_data(self):
+    @data.deleter
+    def data(self):
         self.__vacancies_data = []
 

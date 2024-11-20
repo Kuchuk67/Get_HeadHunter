@@ -48,22 +48,11 @@ class ListVacansies:
 
             additionally = {'snippet': snippet, 'schedule': schedule, 'address': address}
 
-            vacancies_data.append('_Vacancy__id_v': vacancy.get('id'), '_Vacancy__name': vacancy.get(
+            dict_ = {'_Vacancy__id_v': vacancy.get('id'), '_Vacancy__name': vacancy.get(
                 'name'), '_Vacancy__salary_from': salary_from, '_Vacancy__salary_to': salary_to, '_Vacancy__currency': currency, '_Vacancy__url': vacancy.get(
-                'url'), '_Vacancy__date': vacancy.get('published_at'), 'additionally': additionally)
+                'url'), '_Vacancy__date': vacancy.get('published_at'), 'additionally': additionally}
+            vacancies_data.append(dict_)
+            #print(dict_)
 
 
-            """try:
-                vacancies.append(Vacancy(vacancy.get('id'),
-                                                vacancy.get('name'),
-                                                salary_from,
-                                                salary_to,
-                                                currency,
-                                                vacancy.get('url'),
-                                                vacancy.get('published_at'),
-                                                additionally
-                                                ))
-            except ValueError as txt:
-                print(f"Вакансия не добавлена: {txt}")"""
-
-        return vacancies
+        return vacancies_data

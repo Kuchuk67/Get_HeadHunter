@@ -1,15 +1,18 @@
 
 from src.get_api import GetAPI
-
+from src.list_vacancies import ListVacansies
 
 def main():
 
 
-    data_ = GetAPI('бухгалтер')
+    api = GetAPI('бухгалтер')
     #x.load_vacancies('бухгалтер')
-    print(data_.status)
-    print(data_.vacancies_data)
-    #print(data_.vacancies)
+    #print(x)
+    print(api.status)
+
+    vacansies_data = ListVacansies.tp_dict(api.data)
+
+    print(vacansies_data)
 
 
 
