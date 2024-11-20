@@ -1,15 +1,15 @@
 import re
 from src.vacancy import Vacancy
 
+
 class ListVacansies:
     """ переводит формат JSON HH.ru
 в список словарей с данными по вакансии """
 
-    def __init__(self, vacancies_data:list):
-        self.vacancies_data = vacancies_data
-    def __str__(self) -> list:
-        vacancies:list = []
-        for vacancy in vacancies_data:
+    @classmethod
+    def tp_dict(cls, data_api: list):
+        vacancies_data = []
+        for vacancy in data_api:
 
             # dict_salary = vacancy.get('salary')
             if vacancy.get('salary'):
@@ -48,7 +48,12 @@ class ListVacansies:
 
             additionally = {'snippet': snippet, 'schedule': schedule, 'address': address}
 
-            try:
+            vacancies_data.append('_Vacancy__id_v': vacancy.get('id'), '_Vacancy__name': vacancy.get(
+                'name'), '_Vacancy__salary_from': salary_from, '_Vacancy__salary_to': salary_to, '_Vacancy__currency': currency, '_Vacancy__url': vacancy.get(
+                'url'), '_Vacancy__date': vacancy.get('published_at'), 'additionally': additionally)
+
+
+            """try:
                 vacancies.append(Vacancy(vacancy.get('id'),
                                                 vacancy.get('name'),
                                                 salary_from,
@@ -59,6 +64,6 @@ class ListVacansies:
                                                 additionally
                                                 ))
             except ValueError as txt:
-                print(f"Вакансия не добавлена: {txt}")
+                print(f"Вакансия не добавлена: {txt}")"""
 
         return vacancies

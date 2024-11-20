@@ -5,11 +5,11 @@ from src.get_api import GetAPI
 def main():
 
 
-    x = GetAPI('бухгалтер')
+    data_ = GetAPI('бухгалтер')
     #x.load_vacancies('бухгалтер')
-    print(x.status)
-    print(x.vacancies_data)
-    #print(x.vacancies)
+    print(data_.status)
+    print(data_.vacancies_data)
+    #print(data_.vacancies)
 
 
 
