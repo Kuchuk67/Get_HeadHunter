@@ -37,10 +37,25 @@ def data_api():
          'employment': {'id': 'full', 'name': 'Полная занятость'}, 'adv_response_url': None, 'is_adv_vacancy': False,
          'adv_context': None}]
 
+
 @pytest.fixture()
 def vacansies_data_0():
-    return [{'_Vacancy__id_v': '111404961', '_Vacancy__name': 'Бухгалтер на торговые операции', '_Vacancy__salary_from': 60000, '_Vacancy__salary_to': 60000, '_Vacancy__currency': 'RUR', '_Vacancy__url': 'https://api.hh.ru/vacancies/111404961?host=hh.ru', '_Vacancy__date': '2024-11-20T11:33:19+0300', '_Vacancy__additionally': {'snippet': 'Знание учетной системы 1С Управление производственным предприятием версия 8.3 и АХАPTA. Опыт работы от 1 года.', 'schedule': 'Полный день', 'address': 'Нижний Новгород, Базарная'}}]
+    return [{'_Vacancy__id_v': '111404961', '_Vacancy__name': 'Бухгалтер на торговые операции',
+             '_Vacancy__salary_from': 60000, '_Vacancy__salary_to': 60000, '_Vacancy__currency': 'RUR',
+             '_Vacancy__url': 'https://api.hh.ru/vacancies/111404961?host=hh.ru',
+             '_Vacancy__date': '2024-11-20T11:33:19+0300', '_Vacancy__additionally': {
+            'snippet': 'Знание учетной системы 1С Управление производственным предприятием версия 8.3 и АХАPTA. Опыт работы от 1 года.',
+            'schedule': 'Полный день', 'address': 'Нижний Новгород, Базарная'}}]
 
+
+@pytest.fixture()
+def vacansies_data_1():
+    return [{'_Vacancy__id_v': '1114049235', '_Vacancy__name': 'Бухгалтер на торговые операции',
+             '_Vacancy__salary_from': 60000, '_Vacancy__salary_to': 60000, '_Vacancy__currency': 'RUR',
+             '_Vacancy__url': 'https://api.hh.ru/vacancies/111404961?host=hh.ru',
+             '_Vacancy__date': '2024-11-20T11:33:19+0300', '_Vacancy__additionally': {
+            'snippet': 'Знание учетной системы 1С Управление производственным предприятием версия 8.3 и АХАPTA. Опыт работы от 1 года.',
+            'schedule': 'Полный день', 'address': 'Нижний Новгород, Базарная'}}]
 
 
 @pytest.fixture()
@@ -93,7 +108,7 @@ def vacansies_data():
              '_Vacancy__date': '2024-11-20T14:48:19+0300',
              '_Vacancy__additionally': {'snippet': 'Высшее, среднее профессиональное.', 'schedule': 'Полный день',
                                         'address': 'Череповец, Советский проспект'}},
-            {'_Vacancy__id_v': '111434899', '_Vacancy__name': 'Бухгалтер', '_Vacancy__salary_from': 55000,
+            {'_Vacancy__id_v': '111434899', '_Vacancy__name': 'Бухгалтер', '_Vacancy__salary_from': 0,
              '_Vacancy__salary_to': 0, '_Vacancy__currency': 'RUR',
              '_Vacancy__url': 'https://api.hh.ru/vacancies/111434899?host=hh.ru',
              '_Vacancy__date': '2024-01-04T15:25:17+0300', '_Vacancy__additionally': {
@@ -105,3 +120,24 @@ def vacansies_data():
              '_Vacancy__date': '2024-02-21T10:24:58+0300', '_Vacancy__additionally': {
                 'snippet': 'Опыт работы бухгалтером коммерческой организации от 1 года. Знание 1С, Excel, СБиС.',
                 'schedule': 'Полный день', 'address': 'Барнаул, Балтийская улица'}}]
+
+
+@pytest.fixture()
+def files():
+    return [{'_Vacancy__id_v': '111404961', '_Vacancy__name': 'Бухгалтер на торговые операции',
+             '_Vacancy__salary_from': 60000, '_Vacancy__salary_to': 60000, '_Vacancy__salary_average': 60000,
+             '_Vacancy__url': 'https://api.hh.ru/vacancies/111404961?host=hh.ru', '_Vacancy__currency': 'RUR',
+             '_Vacancy__date': '2024-11-20T11:33:19+0300', '_Vacancy__additionally': {
+            'snippet': 'Знание учетной системы 1С Управление производственным предприятием версия 8.3 и АХАPTA. Опыт работы от 1 года.',
+            'schedule': 'Полный день', 'address': 'Нижний Новгород, Базарная'}
+             },
+            {'_Vacancy__id_v': '1114049235', '_Vacancy__name': 'Бухгалтер на торговые операции',
+             '_Vacancy__salary_from': 60000, '_Vacancy__salary_to': 60000, '_Vacancy__salary_average': 60000,
+             '_Vacancy__url': 'https://api.hh.ru/vacancies/111404961?host=hh.ru', '_Vacancy__currency': 'RUR',
+             '_Vacancy__date': '2024-11-20T11:33:19+0300', '_Vacancy__additionally': {
+                'snippet': 'Знание учетной системы 1С Управление производственным предприятием версия 8.3 и АХАPTA. Опыт работы от 1 года.',
+                'schedule': 'Полный день', 'address': 'Нижний Новгород, Базарная'}
+             }]
+
+
+

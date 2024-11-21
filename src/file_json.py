@@ -22,13 +22,13 @@ class FilesJSON(Files_Vacancies):
         except:
             self.remove()
 
-        print(dict_object)
+        #print(dict_object)
 
         for object_ in list_object:
-            
+
             dict_object.append(object_.__dict__)
 
-        print(dict_object)
+        #print(dict_object)
         # return json.dumps(dict_object, indent=4, ensure_ascii=False )
         return dict_object
 

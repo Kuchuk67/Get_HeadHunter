@@ -35,4 +35,7 @@ class Files_Vacancies(ABC):
 
     def remove(self):
         ''' Удаляет файл '''
-        os.remove(self.file_name)
+        try:
+            os.remove(self.file_name)
+        except:
+            pass
