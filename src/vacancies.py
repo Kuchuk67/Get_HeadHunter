@@ -7,7 +7,7 @@ class Vacancies():
 
     def __init__(self):
         self.__vacancies = []
-        super().__init__()
+
 
     @property
     def vacancies(self):
@@ -17,6 +17,7 @@ class Vacancies():
 
         """Отдает список объектов с вакансиями"""
         if self.__vacancies == [] and not x == []:
+
             for vacancy in x:
 
 
@@ -61,5 +62,5 @@ class Vacancies():
 
     def sort_salary(self) -> None:
         """ Сортирует список вакансий по зарплате """
-        sort_vacancies = sorted(self.vacancies, key=lambda x: x.salary_average, reverse=False)
+        sort_vacancies = sorted(self.vacancies, key=lambda x: x.salary_average, reverse=True)
         self.__vacancies = sort_vacancies

@@ -1,38 +1,36 @@
-
-from src.get_api import GetAPI
-from src.list_vacancies import ListVacansies
 from src.vacancies import Vacancies
 from src.file_json import FilesJSON
+from src.list_vacancies import ListVacansies
+from src.get_api import GetAPI
 
 def main():
 
 
     api = GetAPI('бухгалтер')
+    print(api.data)
 
     print(api.status)
 
     vacansies_data = ListVacansies.tp_dict(api.data)
 
-    x =   Vacancies()
-    x.created(vacansies_data)
+    print(vacansies_data)
 
-    f = FilesJSON('112sd.txt')
+    #x =   Vacancies()
+    #x.created(vacansies_data)
 
-    q:list = f.data_json(x.vacancies)
-
-
-    w = f.save(q)
-
-    #w = f.read()
-
-    print(w)
+    #f = FilesJSON('112sd.txt')
 
 
+    #q:list = f.data_json_created(x.vacancies)
+    #w = f.save(q)
 
+    #vacansies_data = f.read()
+    #print(vacansies_data)
+    #x.created(vacansies_data)
 
-
-
-
+    #print(x)
+    #for v in x.vacancies:
+     #   print(v.__dict__)
 
 
 

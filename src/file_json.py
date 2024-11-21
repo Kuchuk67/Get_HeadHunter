@@ -8,7 +8,7 @@ class FilesJSON(Files_Vacancies):
 
 
 
-    def data_json(self, list_object):
+    def data_json_created(self, list_object):
         """ Создает из списка объектов Vacansy список словарей для JSON файла"""
         dict_object = []
 
@@ -20,15 +20,15 @@ class FilesJSON(Files_Vacancies):
             with open(self.file_name, encoding='utf-8') as files:
                 dict_object = json.load(files)
         except:
-            pass
+            self.remove()
 
-
-
-
+        print(dict_object)
 
         for object_ in list_object:
+            
             dict_object.append(object_.__dict__)
 
+        print(dict_object)
         # return json.dumps(dict_object, indent=4, ensure_ascii=False )
         return dict_object
 
@@ -37,13 +37,11 @@ class FilesJSON(Files_Vacancies):
         """ Добавляет вакансии в файл """
 
 
-
-
         if typing.TYPE_CHECKING:
             from _typeshed import SupportsWrite
             files: SupportsWrite[str]
         try:
-            with open(self.file_name, 'a', encoding='utf-8' ) as files:
+            with open(self.file_name, 'w', encoding='utf-8' ) as files:
                 json.dump(dict_object, fp=files, indent=4, ensure_ascii=False)
         except Exception as er:
             return f"Ошибка записи файла; {er}"
@@ -60,7 +58,6 @@ class FilesJSON(Files_Vacancies):
         with open(self.file_name, encoding='utf-8') as files:
             data = json.load(files)
 
-            print(data)
-            print(type(data))
+        return data
             # из JSON создать  список объектов
         #del self.vacancies
