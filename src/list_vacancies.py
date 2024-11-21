@@ -50,7 +50,7 @@ class ListVacansies:
 
             dict_ = {'_Vacancy__id_v': vacancy.get('id'), '_Vacancy__name': vacancy.get(
                 'name'), '_Vacancy__salary_from': salary_from, '_Vacancy__salary_to': salary_to, '_Vacancy__currency': currency, '_Vacancy__url': vacancy.get(
-                'url'), '_Vacancy__date': vacancy.get('published_at'), 'additionally': additionally}
+                'url'), '_Vacancy__date': vacancy.get('published_at'), '_Vacancy__additionally': additionally}
             vacancies_data.append(dict_)
             #print(dict_)
 

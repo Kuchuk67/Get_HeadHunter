@@ -1,9 +1,7 @@
 from src.vacancy import Vacancy
-from src.abc_get_api import GetAPI
-import re
 
 
-class ListVacancies():
+class Vacancies():
     """Формирует из данных полученных по API  список с объектами вакансий,
 добавляет объекты, сортирует список, удаляет объекты из списка"""
 
@@ -12,62 +10,30 @@ class ListVacancies():
         super().__init__()
 
     @property
-    def vacancies(self) -> list:
+    def vacancies(self):
+        return self.__vacancies
+
+    def created(self,x:list) -> list:
+
         """Отдает список объектов с вакансиями"""
-        if self.__vacancies == [] and not self.vacancies_data == []:
-            for vacancy in self.vacancies_data:
+        if self.__vacancies == [] and not x == []:
+            for vacancy in x:
 
-                # dict_salary = vacancy.get('salary')
-                if vacancy.get('salary'):
-                    salary_to = vacancy.get('salary', "0").get('to', "0")
-                    salary_from = vacancy.get('salary', "0").get('from', "0")
-
-                    if not salary_to:
-                        salary_to = 0
-                    salary_to = int(salary_to)
-
-                    if not salary_from:
-                        salary_from = 0
-                    salary_from = int(salary_from)
-
-                    currency = f'{vacancy.get('salary').get('currency', "")}'
-                else:
-                    salary_to = 0
-                    salary_from = 0
-                    currency = ''
-
-                if vacancy.get('snippet'):
-                    snippet = f"{vacancy.get('snippet').get('requirement')}"
-                    snippet = re.sub('(<(/?[^>]+)>)', '', snippet)
-                else:
-                    snippet = ""
-
-                if vacancy.get('schedule'):
-                    schedule = f"{vacancy.get('schedule').get('name')}"
-                else:
-                    schedule = ""
-
-                if vacancy.get('address'):
-                    address = f"{vacancy.get('address').get('city')}, {vacancy.get('address').get('street')}"
-                else:
-                    address = ""
-
-                additionally = {'snippet': snippet, 'schedule': schedule, 'address': address}
 
                 try:
-                    self.__vacancies.append(Vacancy(vacancy.get('id'),
-                                                    vacancy.get('name'),
-                                                    salary_from,
-                                                    salary_to,
-                                                    currency,
-                                                    vacancy.get('url'),
-                                                    vacancy.get('published_at'),
-                                                    additionally
+                    self.__vacancies.append(Vacancy(vacancy.get('_Vacancy__id_v'),
+                                                    vacancy.get('_Vacancy__name'),
+                                                    vacancy.get('_Vacancy__salary_from'),
+                                                    vacancy.get('_Vacancy__salary_to'),
+                                                    vacancy.get('_Vacancy__currency'),
+                                                    vacancy.get('_Vacancy__url'),
+                                                    vacancy.get('_Vacancy__date'),
+                                                    vacancy.get('_Vacancy__additionally')
                                                     ))
                 except ValueError as txt:
                     print(f"Вакансия не добавлена: {txt}")
 
-        return self.__vacancies
+
 
     @vacancies.setter
     def vacancies(self, data):
@@ -82,8 +48,8 @@ class ListVacancies():
     def vacancy_del(self, id_v) -> None:
         """Удаляет  вакансию"""
         for index, object_vacancy in enumerate(self.vacancies):
-            # print(index," - ",object_vacancy.id_v)
-            if object_vacancy.id_v == id_v:
+            #print(index," - ",object_vacancy.id_v)
+            if int(object_vacancy.id_v) == id_v:
                 del self.vacancies[index]
                 break
 
