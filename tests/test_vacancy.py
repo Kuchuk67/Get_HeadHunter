@@ -12,6 +12,8 @@ def test_compare_vacancies():
                  'address': 'Москва, Космодамианская набережная'} )
     assert a.compare_vacancies(b) == False
     assert b.compare_vacancies(a) == True
+
+def test_compare_none():
     with pytest.raises(ValueError):
         c = Vacancy(3, 'Дворник', 12000, 15000, 'RU', '', '2024-02-16T14:58:28+0300',
                 {'snippet': 'Чисто подметать двор', 'schedule': 'Полный день',
