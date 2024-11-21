@@ -2,13 +2,13 @@
 from src.get_api import GetAPI
 from src.list_vacancies import ListVacansies
 from src.vacancies import Vacancies
+from src.file_json import FilesJSON
 
 def main():
 
 
     api = GetAPI('бухгалтер')
-    #x.load_vacancies('бухгалтер')
-    #print(x)
+
     print(api.status)
 
     vacansies_data = ListVacansies.tp_dict(api.data)
@@ -16,15 +16,18 @@ def main():
     x =   Vacancies()
     x.created(vacansies_data)
 
-    print(x.vacancies)
+    f = FilesJSON('112sd.txt')
 
-    x.vacancy_del(111422410)
+    q:list = f.data_json(x.vacancies)
 
-    print(x.vacancies)
 
-    del x.vacancies
+    w = f.save(q)
 
-    print("-",x.vacancies)
+    #w = f.read()
+
+    print(w)
+
+
 
 
 

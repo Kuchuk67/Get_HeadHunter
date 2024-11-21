@@ -45,13 +45,14 @@ class Vacancies():
         self.__vacancies = []
         # del self.vacancies_data
 
-    def vacancy_del(self, id_v) -> None:
+    def vacancy_del(self, id_v) -> bool:
         """Удаляет  вакансию"""
         for index, object_vacancy in enumerate(self.vacancies):
             #print(index," - ",object_vacancy.id_v)
             if int(object_vacancy.id_v) == id_v:
                 del self.vacancies[index]
-                break
+                return True
+        return False
 
     def sort_date(self) -> None:
         """ Сортирует список вакансий по дате """

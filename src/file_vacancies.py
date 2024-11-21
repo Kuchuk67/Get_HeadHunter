@@ -22,7 +22,7 @@ class Files_Vacancies(ABC):
 
 
     @abstractmethod
-    def save(self):
+    def save(self,dict_object):
         ''' Добавляет вакансии в файл '''
         pass
 

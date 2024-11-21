@@ -9,7 +9,7 @@ class GetAPI:
     def __init__(self, keyword):
         self.url = 'https://api.hh.ru/vacancies'
         self.headers = {'User-Agent': 'HH-User-Agent'}
-        self.params = {'text': '', 'page': 0, 'per_page': 100, 'area': 113}
+        self.params = {'text': '', 'page': 0, 'per_page': 2, 'area': 113}
         self.status:int = 0
         self.__vacancies_data: list = []
 
@@ -18,7 +18,7 @@ class GetAPI:
         self.params['page'] = 0
         self.params['text'] = keyword
 
-        while self.params.get('page') != 5:
+        while self.params.get('page') != 2:
             for _ in range(3):
                 response = requests.get(self.url, headers=self.headers, params=self.params)
                 self.status = response.status_code
