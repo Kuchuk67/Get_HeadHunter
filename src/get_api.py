@@ -18,7 +18,7 @@ class GetAPI:
         self.params['page'] = 0
         self.params['text'] = keyword
 
-        while self.params.get('page') != 5:
+        while self.params.get('page') != 1:
             for _ in range(3):
                 response = requests.get(self.url, headers=self.headers, params=self.params)
                 self.status = response.status_code
