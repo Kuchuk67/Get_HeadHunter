@@ -16,27 +16,21 @@ class FilesJSON(Files_Vacancies):
             if typing.TYPE_CHECKING:
                 from _typeshed import SupportsRead
                 files: SupportsRead[str | bytes]
-
             with open(self.file_name, encoding='utf-8') as files:
                 dict_object = json.load(files)
-
         except:
             self.remove()
 
-        print(dict_object)
+        # Проверка на одинаковые вакансии
 
         for object_ in list_object:
             er = 0
             for d_o in dict_object:
-                if d_o.get('id_v') == object_.id_v:
+                if d_o.get('_Vacancy__id_v') == str(object_.id_v):
                     er = 1
                     break
-
-            print(object_.id_v, )
-
             if er != 1:
                 dict_object.append(object_.__dict__)
-
         return dict_object
 
 

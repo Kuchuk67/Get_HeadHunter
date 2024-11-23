@@ -33,12 +33,15 @@ def main():
     x = Vacancies()
     x.created(vacansies_data)
 
-    #print(x)
+    q: list = f.data_json_created(x.vacancies)
+    w = f.save(q)
+
+    print(w)
     #for v in x.vacancies:
      #   print(v.__dict__)
 
 
-    f = IterVacancies(x.vacancies)
+    """f = IterVacancies(x.vacancies)
     for _ in range(10):
 
         print(next(f))
@@ -46,7 +49,7 @@ def main():
     compare = CompareVacancies(x.vacancies[0])
     print(compare(x.vacancies[1]))
     print(compare(x.vacancies[2]))
-    print(compare(x.vacancies[3]))
+    print(compare(x.vacancies[3]))"""
 
     #print(CompareVacancies(x.vacancies[0], x.vacancies[1]))
 
