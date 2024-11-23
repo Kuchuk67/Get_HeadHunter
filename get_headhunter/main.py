@@ -1,6 +1,7 @@
 from src.vacancies import Vacancies, IterVacancies
 from src.file_json import FilesJSON
 from src.list_vacancies import ListVacansies
+from src.area import Area
 from src.get_api import GetAPI
 from src.vacancy import CompareVacancies
 
@@ -22,21 +23,21 @@ def main():
     #x =   Vacancies()
     #x.created(vacansies_data)
 
-    f = FilesJSON('112sd.txt')
+    #f = FilesJSON('112sd.txt')
 
     #f.remove()
     #q:list = f.data_json_created(x.vacancies)
     #w = f.save(q)
 
-    vacansies_data = f.read()
+    #vacansies_data = f.read()
     #print(vacansies_data)
-    x = Vacancies()
-    x.created(vacansies_data)
+    #x = Vacancies()
+    #x.created(vacansies_data)
 
-    q: list = f.data_json_created(x.vacancies)
-    w = f.save(q)
+    #q: list = f.data_json_created(x.vacancies)
+    #w = f.save(q)
 
-    print(w)
+    #print(w)
     #for v in x.vacancies:
      #   print(v.__dict__)
 
@@ -55,6 +56,20 @@ def main():
 
 
 
+    x = Area()
+    x.load()
+    q = Area.id_area('СМоленск')
+    #print(q)
+
+    #api = GetAPI('бухгалтер')
+    api = ListVacansies('бухгалтер')
+    api.area = q
+    x = api.connect()
+    # print(x)
+
+    vacansies_data = api.to_dict()
+
+    print(vacansies_data)
 
 
 

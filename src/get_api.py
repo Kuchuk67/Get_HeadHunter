@@ -9,7 +9,7 @@ class GetAPI(ABC):
     def __init__(self, keyword):
         self.__url = 'https://api.hh.ru/vacancies'
         self.__headers = {'User-Agent': 'HH-User-Agent'}
-        self.__params = {'text': '', 'page': 0, 'per_page': 100, 'area': 113}
+        self.__params = {'text': '', 'page': 0, 'per_page': 100, 'area': '113'}
         self.status:int = 0
         self.__vacancies_data: list = []
 
@@ -17,6 +17,16 @@ class GetAPI(ABC):
 
         self.__params['page'] = 0
         self.__params['text'] = keyword
+
+    @property
+    def area(self):
+        return self.__params['area']
+
+    @area.setter
+    def area(self, data):
+        self.__params['area'] = data
+
+
 
 
     @abstractmethod
