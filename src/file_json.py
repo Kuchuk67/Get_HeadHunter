@@ -30,7 +30,19 @@ class FilesJSON(Files_Vacancies):
                     er = 1
                     break
             if er != 1:
-                dict_object.append(object_.__dict__)
+                dict_object.append(
+                {
+                    "_Vacancy__id_v": object_.id_v,
+                    "_Vacancy__name": object_.name,
+                    "_Vacancy__salary_from": object_.salary_from,
+                    "_Vacancy__salary_to": object_.salary_to,
+                    "_Vacancy__salary_average": object_.salary_average,
+                    "_Vacancy__url": object_.url,
+                    "_Vacancy__currency": object_.currency,
+                    "_Vacancy__date": object_.date,
+                    "_Vacancy__additionally": object_.additionally
+                }
+                )
         return dict_object
 
 

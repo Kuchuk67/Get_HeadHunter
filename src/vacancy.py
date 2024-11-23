@@ -1,5 +1,7 @@
 class Vacancy:
     '''Класс вакансии. Объект содежит данные по одной вакансии'''
+    __slots__ = ('__id_v',  '__name', '__salary_from', '__salary_to', '__salary_average', '__currency',  '__url', '__date', '__additionally')
+
     def __init__(self, id_v,  name, salary_from, salary_to, currency,  url, date, additionally):
 
         self.__id_v:int = id_v
