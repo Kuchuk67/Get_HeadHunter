@@ -1,8 +1,8 @@
 import requests
 import time
+from abc import ABC, abstractmethod
 
-
-class GetAPI:
+class GetAPI(ABC):
     """ отправляет запрос для получения данных API
     создаст объект: список словарей с данными"""
 
@@ -35,6 +35,13 @@ class GetAPI:
             self.params['page'] += 1
 
 
+    @abstractmethod
+    def to_dict(self):
+        pass
+
+    @property
+    def vacancies_data(self):
+        return self.__vacancies_data
 
 
 

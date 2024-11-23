@@ -58,7 +58,7 @@ def test_iter_vacancies(vacansies_data):
     x.created(vacansies_data)
     f = IterVacancies(x.vacancies)
     q = next(f)
-    assert q.name == "Бухгалтер по расчету заработной платы"
+    assert q == ('111529103', 'Бухгалтер по расчету заработной платы, зарплата: 180000, Полный день, адрес: Москва, Космодамианская набережная')
     for _ in range(9):
         q = next(f)
 

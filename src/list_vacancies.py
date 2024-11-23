@@ -1,15 +1,18 @@
 import re
 from src.vacancy import Vacancy
+from src.get_api import GetAPI
 
-
-class ListVacansies:
+class ListVacansies(GetAPI):
     """ переводит формат JSON HH.ru
 в список словарей с данными по вакансии """
+    def __init__(self, keyword):
+        self.__vacancies_data = []
+        super().__init__(keyword)
 
-    @classmethod
-    def tp_dict(cls, data_api: list):
+
+    def to_dict(self):
         vacancies_data = []
-        for vacancy in data_api:
+        for vacancy in self.vacancies_data:
 
             # dict_salary = vacancy.get('salary')
             if vacancy.get('salary'):

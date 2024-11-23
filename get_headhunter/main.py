@@ -10,33 +10,34 @@ def main():
     #print(api.data)
 
     #print(api.status)
+    api = ListVacansies('бухгалтер')
 
-    #vacansies_data = ListVacansies.tp_dict(api.data)
+    vacansies_data = api.to_dict()
 
-    #print(vacansies_data)
+    print(vacansies_data)
 
     x =   Vacancies()
-    #x.created(vacansies_data)
+    x.created(vacansies_data)
 
     f = FilesJSON('112sd.txt')
 
-    #f.remove()
-    #q:list = f.data_json_created(x.vacancies)
-    #w = f.save(q)
+    f.remove()
+    q:list = f.data_json_created(x.vacancies)
+    w = f.save(q)
 
-    vacansies_data = f.read()
+    #vacansies_data = f.read()
     #print(vacansies_data)
-    x.created(vacansies_data)
+    #x.created(vacansies_data)
 
-    print(x)
-    for v in x.vacancies:
-        print(v.__dict__)
+    #print(x)
+    #for v in x.vacancies:
+     #   print(v.__dict__)
 
 
     f = IterVacancies(x.vacancies)
     while True:
-        q = next(f)
-        print(q.name)
+
+        print(next(f))
 
 
 
