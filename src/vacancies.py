@@ -64,3 +64,26 @@ class Vacancies():
         """ Сортирует список вакансий по зарплате """
         sort_vacancies = sorted(self.vacancies, key=lambda x: x.salary_average, reverse=True)
         self.__vacancies = sort_vacancies
+
+
+
+class IterVacancies:
+    """Возвращает следующее объект Вакансию Vacancy.
+        Returns:
+            int: Следующая ваканси.
+        Raises:
+            raise StopIteration: Если достигнута верхняя граница диапазона.
+        """
+    def __init__(self, vacancies):
+        self.vacancies = vacancies
+        self.step = 0
+    def __next__(self):
+        try:
+            return_value = self.vacancies[self.step]
+        except IndexError:
+            raise StopIteration
+
+        self.step+=1
+        return return_value
+    def __iter__(self):
+        return self

@@ -1,6 +1,6 @@
 import pytest
 
-from src.vacancies import Vacancies
+from src.vacancies import Vacancies, IterVacancies
 from src.vacancy import Vacancy
 from unittest.mock import patch
 
@@ -52,6 +52,21 @@ def test_del_v(vacansies_data):
     x.created(vacansies_data)
     del x.vacancies
     assert x.vacancies == []
+
+def test_iter_vacancies(vacansies_data):
+    x = Vacancies()
+    x.created(vacansies_data)
+    f = IterVacancies(x.vacancies)
+    q = next(f)
+    assert q.name == "Бухгалтер по расчету заработной платы"
+    for _ in range(9):
+        q = next(f)
+
+    with pytest.raises(StopIteration):
+        q = next(f)
+
+
+
 
 
 
