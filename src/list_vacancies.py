@@ -1,98 +1,62 @@
+import re
 from src.vacancy import Vacancy
-from src.abc_get_api import GetAPI
+from src.get_api import GetAPI
 
-class ListVacancies(GetAPI):
-    """Формирует из данных полученных по API  список с объектами вакансий,
-добавляет объекты, сортирует список, удаляет объекты из списка"""
-    
-    def __init__(self):
-        self.__vacancies = []
-        super().__init__()
+class ListVacansies(GetAPI):
+    """ переводит формат JSON HH.ru
+в список словарей с данными по вакансии """
+    def __init__(self, keyword):
+        self.__vacancies_data = []
+        super().__init__(keyword)
 
-    @property
-    def vacancies(self) -> list:
-        """Отдает список объектов с вакансиями"""
-        if self.__vacancies == [] and not self.vacancies_data == []:
-            for vacancy in self.vacancies_data:
 
-                if vacancy.get('address'):
-                    address = f"{vacancy.get('address').get('city')}, {vacancy.get('address').get('street')}"
-                else:
-                    address = ""
-                # dict_salary = vacancy.get('salary')
-                if vacancy.get('salary'):
-                    salary_to = vacancy.get('salary', "0").get('to', "0")
-                    salary_from = vacancy.get('salary', "0").get('from', "0")
 
-                    if not salary_to:
-                        salary_to = 0
-                    salary_to = int(salary_to)
+    def to_dict(self):
+        vacancies_data = []
+        for vacancy in self.data:
 
-                    if not salary_from:
-                        salary_from = 0
-                    salary_from = int(salary_from)
+            # dict_salary = vacancy.get('salary')
+            if vacancy.get('salary'):
+                salary_to = vacancy.get('salary', "0").get('to', "0")
+                salary_from = vacancy.get('salary', "0").get('from', "0")
 
-                    currency = f'{vacancy.get('salary').get('currency', "")}'
-                else:
+                if not salary_to:
                     salary_to = 0
+                salary_to = int(salary_to)
+
+                if not salary_from:
                     salary_from = 0
-                    currency = ''
+                salary_from = int(salary_from)
 
-                if vacancy.get('snippet'):
-                    snippet = f"{vacancy.get('snippet').get('requirement')}"
-                else:
-                    snippet = ""
+                currency = f'{vacancy.get('salary').get('currency', "")}'
+            else:
+                salary_to = 0
+                salary_from = 0
+                currency = ''
 
-                if vacancy.get('schedule'):
-                    schedule = f"{vacancy.get('schedule').get('name')}"
-                else:
-                    schedule = ""
-                try:
-                    self.__vacancies.append(Vacancy(vacancy.get('id'),
-                                                vacancy.get('name'),
-                                                salary_from,
-                                                salary_to,
-                                                currency,
-                                                address,
-                                                vacancy.get('url'),
-                                                snippet,
-                                                schedule,
-                                                vacancy.get('published_at'),
-                                                ))
-                except ValueError as txt:
-                    print(f"Вакансия не добавлена: {txt}")
+            if vacancy.get('snippet'):
+                snippet = f"{vacancy.get('snippet').get('requirement')}"
+                snippet = re.sub('(<(/?[^>]+)>)', '', snippet)
+            else:
+                snippet = ""
 
-        return self.__vacancies
+            if vacancy.get('schedule'):
+                schedule = f"{vacancy.get('schedule').get('name')}"
+            else:
+                schedule = ""
 
-    @vacancies.setter
-    def vacancies(self, data):
-        self.__vacancies.append(data)
+            if vacancy.get('address'):
+                address = f"{vacancy.get('address').get('city')}, {vacancy.get('address').get('street')}"
+            else:
+                address = ""
 
-    @vacancies.deleter
-    def vacancies(self):
-        """Удаляет все вакансии"""
-        self.__vacancies = []
-        # del self.vacancies_data
+            additionally = {'snippet': snippet, 'schedule': schedule, 'address': address}
+
+            dict_ = {'_Vacancy__id_v': vacancy.get('id'), '_Vacancy__name': vacancy.get(
+                'name'), '_Vacancy__salary_from': salary_from, '_Vacancy__salary_to': salary_to, '_Vacancy__currency': currency, '_Vacancy__url': vacancy.get(
+                'url'), '_Vacancy__date': vacancy.get('published_at'), '_Vacancy__additionally': additionally}
+            vacancies_data.append(dict_)
+            #print(dict_)
 
 
-    def vacancy_del(self, id_v) -> None:
-        """Удаляет  вакансию"""
-        for index, object_vacancy in enumerate(self.vacancies):
-            #print(index," - ",object_vacancy.id_v)
-            if object_vacancy.id_v == id_v:
-                del self.vacancies[index]
-                break
-
-
-    def sort_date(self) -> None:
-        """ Сортирует список вакансий по дате """
-        sort_vacancies = sorted(self.vacancies, key=lambda x: x.date, reverse=True)
-        self.__vacancies = sort_vacancies
-
-
-    def sort_salary(self) -> None:
-        """ Сортирует список вакансий по зарплате """
-        sort_vacancies = sorted(self.vacancies,  key=lambda x: x.salary_average, reverse=False)
-        self.__vacancies = sort_vacancies
-
-
+        return vacancies_data

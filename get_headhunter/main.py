@@ -1,37 +1,59 @@
-from src.vacancies import Vacancies
-from src.abc_get_api import GetAPI
-from src.save_json import SaveJSON
+from src.vacancies import Vacancies, IterVacancies
+from src.file_json import FilesJSON
+from src.list_vacancies import ListVacansies
+from src.get_api import GetAPI
+from src.vacancy import CompareVacancies
 
 def main():
 
 
-    x = Vacancies('111.json')
-    #x.load_vacancies('бухгалтер')
+    #api = GetAPI('бухгалтер')
+    #print(api.data)
 
-    #print(x.vacancies_data)
-    #print(x.vacancies)
-    for v in x.vacancies:
-        print(v.id_v, v.name, ' - ', v.snippet, v.salary_from, '-', v.salary_to, v.currency, v.address, v.schedule, v.url)
+    #print(api.status)
+    #api = ListVacansies('бухгалтер')
+    #x = api.connect()
+    #print(x)
 
-    #del x.vacancies
-    #print(x.vacancies)
+    #vacansies_data = api.to_dict()
 
-    #x.remove()
+    #print(vacansies_data)
 
-    #x.save()
+    #x =   Vacancies()
+    #x.created(vacansies_data)
 
-    x.read()
-    #print(x.vacancies)
+    f = FilesJSON('112sd.txt')
 
-    #x.vacancy_del('https://api.hh.ru/vacancies/111052269?host=hh.ru')
-    x.sort_date()
-    for v in x.vacancies:
-        print(v.id_v,  v.salary_average, v.name, ' - ', v.snippet, v.currency, v.address, v.schedule, v.url, v.date)
+    #f.remove()
+    #q:list = f.data_json_created(x.vacancies)
+    #w = f.save(q)
 
-    print(x)
+    vacansies_data = f.read()
+    #print(vacansies_data)
+    x = Vacancies()
+    x.created(vacansies_data)
 
-    #sorted_list = sorted(n_list, key=lambda x: int(x[0:]))
-    #q = sorted(x.vacancies, key = lambda y: y.id_v )
+    q: list = f.data_json_created(x.vacancies)
+    w = f.save(q)
+
+    print(w)
+    #for v in x.vacancies:
+     #   print(v.__dict__)
+
+
+    """f = IterVacancies(x.vacancies)
+    for _ in range(10):
+
+        print(next(f))
+
+    compare = CompareVacancies(x.vacancies[0])
+    print(compare(x.vacancies[1]))
+    print(compare(x.vacancies[2]))
+    print(compare(x.vacancies[3]))"""
+
+    #print(CompareVacancies(x.vacancies[0], x.vacancies[1]))
+
+
 
 
 

@@ -1,9 +1,12 @@
+
 from abc import ABC, abstractmethod
 from config import PATH_HOME
 import os
 
 
-class Save_Vacancies(ABC):
+class Files_Vacancies(ABC):
+    """ абстрактный класс работы  с файлами
+    Определяет путь и имя файла """
 
     def __init__(self, file_name:str):
         if not os.path.exists(os.path.join(PATH_HOME, "data")):
@@ -19,7 +22,7 @@ class Save_Vacancies(ABC):
 
 
     @abstractmethod
-    def save(self):
+    def save(self,dict_object):
         ''' Добавляет вакансии в файл '''
         pass
 
@@ -32,6 +35,7 @@ class Save_Vacancies(ABC):
 
     def remove(self):
         ''' Удаляет файл '''
-        os.remove(self.file_name)
-
-
+        try:
+            os.remove(self.file_name)
+        except:
+            pass

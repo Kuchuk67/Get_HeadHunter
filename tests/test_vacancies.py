@@ -1,49 +1,72 @@
 import pytest
 
-from src.vacancies import Vacancies
+from src.vacancies import Vacancies, IterVacancies
 from src.vacancy import Vacancy
 from unittest.mock import patch
 
-@patch("requests.get")
-def test_vacancies(mock_get):
-    mock_get.return_value.status_code = 200
-    mock_get.return_value.json.return_value = {
-        "items": [{'id': 12345,'name': 'Главный бухгалтер',
-'salary': {'from': None, 'to': 450000, 'currency': 'RUR', 'gross': False},
-'address':{'city': 'Москва', 'street': 'Московский международный деловой центр Москва-Сити'},
-'published_at': '2024-11-14T16:18:47+0300',
-'url': 'https://api.hh.ru/vacancies/110985627?host=hh.ru',
-'snippet': {'requirement': 'Опыт работы главным <highlighttext>бухгалтером</highlighttext>',} }]}
-    test_object = Vacancies('111.json')
-    test_object.load_vacancies('Бухгалтер')
+
+def test_vacancies(vacansies_data):
+    x = Vacancies()
+    x.created(vacansies_data)
+    assert  x.vacancies[0].name == "Бухгалтер по расчету заработной платы"
+    assert  x.vacancies[2].name ==  "Бухгалтер по расчетам"
+    assert x.vacancies[0].salary_from == 170000
+    assert x.vacancies[1].salary_from == 60000
+    assert x.vacancies[0].salary_to == 190000
+    assert x.vacancies[3].salary_to == 70000
+    assert x.vacancies[0].salary_average == 180000
+    assert x.vacancies[1].salary_average == 60000
+    assert x.vacancies[0].url == "https://api.hh.ru/vacancies/111529103?host=hh.ru"
+    assert x.vacancies[1].date == "2024-11-21T11:11:06+0300"
+    assert x.vacancies[2].additionally == {
+        'snippet': 'Опыт работы в программе 1С ЗУП 8.3, 1С Бухгалтерия 8.3. Знание нормативных документов. Уверенное владение ПК...',
+        'schedule': 'Полный день', 'address': 'Волгоград, Советская улица'}
+
+def test_sort_date(vacansies_data):
+    x = Vacancies()
+    x.created(vacansies_data)
+    x.sort_date()
+
+    assert x.vacancies[0].date == "2024-11-21T16:09:19+0300"
+    assert x.vacancies[2].date == "2024-11-20T14:48:19+0300"
+    assert x.vacancies[4].date == "2024-08-20T08:39:12+0300"
+
+def test_sort_salary(vacansies_data):
+    x = Vacancies()
+    x.created(vacansies_data)
+    x.sort_salary()
+
+    assert x.vacancies[0].salary_average == 180000
+    assert x.vacancies[2].salary_average == 75000
+    assert x.vacancies[4].salary_average == 60000
 
 
-    assert test_object.vacancies[0].name == 'Главный бухгалтер'
-    assert test_object.vacancies[1].address == 'Москва, Московский международный деловой центр Москва-Сити'
-    assert test_object.vacancies[0].url == 'https://api.hh.ru/vacancies/110985627?host=hh.ru'
-    assert test_object.vacancies[1].snippet == 'Опыт работы главным бухгалтером'
+def test_vacancy_del(vacansies_data):
+    x = Vacancies()
+    x.created(vacansies_data)
+    x.vacancy_del(111529103)
+    assert x.vacancies[0].id_v != 111529103
 
-    a = len(test_object.vacancies)
-    test_object.vacancy_del(12345)
-    b = len(test_object.vacancies)
-    assert b == a - 1
+def test_del_v(vacansies_data):
+    x = Vacancies()
+    x.created(vacansies_data)
+    del x.vacancies
+    assert x.vacancies == []
+
+def test_iter_vacancies(vacansies_data):
+    x = Vacancies()
+    x.created(vacansies_data)
+    f = IterVacancies(x.vacancies)
+    q = next(f)
+    assert q == ('111529103', 'Бухгалтер по расчету заработной платы, зарплата: 180000, Полный день, адрес: Москва, Космодамианская набережная')
+    for _ in range(9):
+        q = next(f)
+
+    with pytest.raises(StopIteration):
+        q = next(f)
 
 
 
-    del test_object.vacancies
-    del test_object.vacancies_data
-    assert test_object.vacancies == []
 
-def test_compare_vacancies():
-    a = Vacancy(1, 'Дворник', 12000, 15000, 'RU','Смоленск', 'http://#', 'Чисто подметать двор', '','2024-02-16T14:58:28+0300')
-    b = Vacancy(2, 'Дворник', 30000, 50000, 'RU', 'Смоленск', 'http://#', 'Не пить на работе', '','2024-02-16T14:58:28+0300')
-    assert a.compare_vacancies(b) == False
-    assert b.compare_vacancies(a) == True
-    with pytest.raises(ValueError):
-        c = Vacancy(3, 'Дворник', 30000, 50000, 'RU',
-                    'Смоленск', '', 'Не пить на работе',
-                    '',   '2024-02-16T14:58:28+0300')
-    with pytest.raises(ValueError):
-        d = Vacancy(4, '', 30000, 50000, 'RU',
-                    'Смоленск', '1242', 'Не пить на работе',
-                    '',   '2024-02-16T14:58:28+0300')
+
+
