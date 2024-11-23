@@ -11,9 +11,6 @@ class FilesJSON(Files_Vacancies):
     def data_json_created(self, list_object):
         """ Создает из списка объектов Vacansy список словарей для JSON файла"""
         dict_object = []
-        #with open(self.file_name, encoding='utf-8') as files:
-          #  data = json.load(files)
-
 
         try:
             if typing.TYPE_CHECKING:
@@ -22,7 +19,7 @@ class FilesJSON(Files_Vacancies):
 
             with open(self.file_name, encoding='utf-8') as files:
                 dict_object = json.load(files)
-                dict_object2 = dict_object
+
         except:
             self.remove()
 
@@ -35,14 +32,11 @@ class FilesJSON(Files_Vacancies):
                     er = 1
                     break
 
-            #if dict_object2 in dict_object2
             print(object_.id_v, )
 
             if er != 1:
                 dict_object.append(object_.__dict__)
 
-        #print(dict_object)
-        # return json.dumps(dict_object, indent=4, ensure_ascii=False )
         return dict_object
 
 

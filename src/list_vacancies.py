@@ -10,9 +10,10 @@ class ListVacansies(GetAPI):
         super().__init__(keyword)
 
 
+
     def to_dict(self):
         vacancies_data = []
-        for vacancy in self.vacancies_data:
+        for vacancy in self.data:
 
             # dict_salary = vacancy.get('salary')
             if vacancy.get('salary'):

@@ -7,20 +7,28 @@ class GetAPI(ABC):
     создаст объект: список словарей с данными"""
 
     def __init__(self, keyword):
-        self.url = 'https://api.hh.ru/vacancies'
-        self.headers = {'User-Agent': 'HH-User-Agent'}
-        self.params = {'text': '', 'page': 0, 'per_page': 100, 'area': 113}
+        self.__url = 'https://api.hh.ru/vacancies'
+        self.__headers = {'User-Agent': 'HH-User-Agent'}
+        self.__params = {'text': '', 'page': 0, 'per_page': 100, 'area': 113}
         self.status:int = 0
         self.__vacancies_data: list = []
 
 
 
-        self.params['page'] = 0
-        self.params['text'] = keyword
+        self.__params['page'] = 0
+        self.__params['text'] = keyword
 
-        while self.params.get('page') != 5:
+
+    @abstractmethod
+    def to_dict(self):
+        pass
+
+
+    def connect(self):
+        while self.__params.get('page') != 5:
+
             for _ in range(3):
-                response = requests.get(self.url, headers=self.headers, params=self.params)
+                response = requests.get(self.__url, headers=self.__headers, params=self.__params)
                 self.status = response.status_code
                 if self.status == 200:
                     break
@@ -32,19 +40,9 @@ class GetAPI(ABC):
             vacancies_page = response.json()['items']
             self.__vacancies_data.extend(vacancies_page)
 
-            self.params['page'] += 1
+            self.__params['page'] += 1
 
-
-    @abstractmethod
-    def to_dict(self):
-        pass
-
-    @property
-    def vacancies_data(self):
-        return self.__vacancies_data
-
-
-
+        return self.status
 
 
     @property
