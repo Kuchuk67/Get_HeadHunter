@@ -57,15 +57,23 @@ def main():
 
 
     x = Area()
-    x.load()
-    q = Area.id_area('СМоленск')
-    #print(q)
+    #x.load()
+    #x.save_to_file()
+    q = Area.id_area('')
+    if q[0] == 'Ok':
+        qq = q[1]
+        #print(q)
+    else:
+        print(q[0])
+        qq =  '113'
+        #q[2] = 'Россия'
 
-    #api = GetAPI('бухгалтер')
+
+
     api = ListVacansies('бухгалтер')
-    api.area = q
+    api.area = qq
     x = api.connect()
-    # print(x)
+    #print(x)
 
     vacansies_data = api.to_dict()
 
