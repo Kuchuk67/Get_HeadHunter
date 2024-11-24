@@ -12,6 +12,10 @@ class Vacancies():
     def vacancies(self):
         return self.__vacancies
 
+    @property
+    def len_vacancies(self):
+        return len(self.__vacancies)
+
     def created(self, x: list) -> list:
 
         """Отдает список объектов с вакансиями"""

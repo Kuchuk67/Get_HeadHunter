@@ -6,6 +6,29 @@ from src.get_api import GetAPI
 from src.vacancy import CompareVacancies
 
 def main():
+    def len_vac():
+        #if data.vacansies:
+        print(f"В списке загружено вакансий: {len(data.vacancies)}")
+
+    def menu():
+        print("\n--- МЕНЮ --- \n1. Загрузить вакансии")
+        if len(data.vacancies) > 0:
+            print("2. Сортировать список по дата\n3. Сортировать список по зарплате")
+            print("4. Просмотр списка вакансий\n8. Удалить список вакансий")
+            print("8. Удалить список вакансий")
+        print("0. Выход")
+        user_input = input("Выберите пункт меню: ")
+        return user_input
+
+    print("Программа работы со списком вакансий")
+    data = Vacancies()
+    len_vac()
+    user_input = menu()
+
+
+
+
+    api = ListVacansies('бухгалтер')
 
 
     #api = GetAPI('бухгалтер')
@@ -56,28 +79,28 @@ def main():
 
 
 
-    x = Area()
+    #x = Area()
     #x.load()
     #x.save_to_file()
-    q = Area.id_area('')
-    if q[0] == 'Ok':
-        qq = q[1]
-        #print(q)
-    else:
-        print(q[0])
-        qq =  '113'
+    #q = Area.id_area('')
+    #if q[0] == 'Ok':
+    #    qq = q[1]
+    #    #print(q)
+    #else:
+     #   print(q[0])
+      #  qq =  '113'
         #q[2] = 'Россия'
 
 
 
-    api = ListVacansies('бухгалтер')
-    api.area = qq
-    x = api.connect()
+    #api = ListVacansies('бухгалтер')
+    #api.area = qq
+    #x = api.connect()
     #print(x)
 
-    vacansies_data = api.to_dict()
+    #vacansies_data = api.to_dict()
 
-    print(vacansies_data)
+    #print(vacansies_data)
 
 
 
