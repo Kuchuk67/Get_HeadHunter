@@ -4,34 +4,41 @@ from src.list_vacancies import ListVacansies
 from src.area import Area
 from src.get_api import GetAPI
 from src.vacancy import CompareVacancies
+from function import len_vac, menu
+from load import load
 
 def main():
-    def len_vac():
-        #if data.vacansies:
-        print(f"В списке загружено вакансий: {len(data.vacancies)}")
 
-    def menu():
-        print("\n--- МЕНЮ --- \n1. Загрузить вакансии")
-        if len(data.vacancies) > 0:
-            print("2. Сортировать список по дата\n3. Сортировать список по зарплате")
-            print("4. Просмотр списка вакансий\n8. Удалить список вакансий")
-            print("8. Удалить список вакансий")
-        print("0. Выход")
-        user_input = input("Выберите пункт меню: ")
-        return user_input
 
     print("Программа работы со списком вакансий")
     data = Vacancies()
-    len_vac()
-    user_input = menu()
+    file_ = input("\nДля работы введите имя файла: ")
+    f = FilesJSON(file_)
+    print("\n")
+    while True:
+        len_vac(data)
+        user_input = menu(data)
+
+        if user_input == '1': # Загрузить вакансии
+            load(data, f)
+        elif user_input == '2': # Сортировать список по дата
+            data.sort_date()
+        elif user_input == '3': # Сортировать список по зарплате
+            data.sort_salary()
+        elif user_input == '4': #  Просмотр списка вакансий
+            print(data.vacancies)
+        elif user_input == '8': # Удалить список вакансий
+            del data.vacancies
+        elif user_input == '0': # Выход
+            break
 
 
 
 
-    api = ListVacansies('бухгалтер')
+    #api = ListVacansies('бухгалтер')
 
 
-    #api = GetAPI('бухгалтер')
+
     #print(api.data)
 
     #print(api.status)
@@ -48,7 +55,7 @@ def main():
 
     #f = FilesJSON('112sd.txt')
 
-    #f.remove()
+    #11
     #q:list = f.data_json_created(x.vacancies)
     #w = f.save(q)
 

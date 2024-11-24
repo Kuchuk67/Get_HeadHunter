@@ -68,9 +68,12 @@ class FilesJSON(Files_Vacancies):
             from _typeshed import SupportsRead
             files: SupportsRead[str | bytes]
 
-        with open(self.file_name, encoding='utf-8') as files:
-            data = json.load(files)
-
+        try:
+            with open(self.file_name, encoding='utf-8') as files:
+                data = json.load(files)
+        except Exception as er:
+            print(f"Ошибка чтения файла: {er}")
+            data = []
         return data
             # из JSON создать  список объектов
         #del self.vacancies
