@@ -88,8 +88,10 @@ class Area:
                 if name != '':
                     name += ','
                 name += index
-        if count > 5:
+        if count > 10:
             status = 'Слишком большая территория поиска.'
+        if ares_id == '':
+            status = 'Ничего не найдено'
 
         return status, ares_id.split(), name
 
