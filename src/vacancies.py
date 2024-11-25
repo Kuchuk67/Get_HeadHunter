@@ -48,9 +48,10 @@ class Vacancies():
 
     def vacancy_del(self, id_v) -> bool:
         """Удаляет  вакансию"""
+
         for index, object_vacancy in enumerate(self.vacancies):
             # print(index," - ",object_vacancy.id_v)
-            if int(object_vacancy.id_v) == id_v:
+            if int(object_vacancy.id_v) == int(id_v):
                 del self.vacancies[index]
                 return True
         return False
@@ -85,9 +86,11 @@ class IterVacancies:
             raise StopIteration
 
         self.step += 1
-
+        adress = ""
+        if vacancy.additionally['address']:
+            adress = f", адрес: {vacancy.additionally['address']}"
         return_value = (vacancy.id_v, f"{vacancy.name}, зарплата: {vacancy.salary_average}, "
-                                      f"{vacancy.additionally['schedule']}, адрес: {vacancy.additionally['address']}")
+                                      f"{vacancy.additionally['schedule']}{adress}", self.step - 1 )
         return return_value
 
     def __iter__(self):

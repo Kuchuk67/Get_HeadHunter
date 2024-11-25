@@ -4,17 +4,17 @@ from src.list_vacancies import ListVacansies
 from src.area import Area
 from src.get_api import GetAPI
 from src.vacancy import CompareVacancies
-from function import len_vac, menu
+from function import len_vac, menu, move
 from load import load
+from config import FILE_NAME
 
 def main():
 
 
     print("Программа работы со списком вакансий")
     data = Vacancies()
-    file_ = input("\nДля работы введите имя файла: ")
-    f = FilesJSON(file_)
-    print("\n")
+    f = FilesJSON(FILE_NAME)
+
     while True:
         len_vac(data)
         user_input = menu(data)
@@ -26,7 +26,14 @@ def main():
         elif user_input == '3': # Сортировать список по зарплате
             data.sort_salary()
         elif user_input == '4': #  Просмотр списка вакансий
-            print(data.vacancies)
+            move(data)
+        elif user_input == '6':  # Изменить имя файла
+            print(f"\nТекущее имя файла: {f.file_name}.тип")
+            file_ = input("Для работы введите имя файла (расширение подставляется автоматически): ")
+            if file_.isalnum():
+                f = FilesJSON(file_)
+            else:
+                print("Недопустимый тип файла")
         elif user_input == '8': # Удалить список вакансий
             del data.vacancies
         elif user_input == '0': # Выход

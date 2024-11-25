@@ -1,7 +1,7 @@
 import requests
 import time
 from abc import ABC, abstractmethod
-from config import PAGE, PER_PAGE
+from config import PAGE, PER_PAGE, AREA
 
 class GetAPI(ABC):
     """ отправляет запрос для получения данных API
@@ -10,10 +10,9 @@ class GetAPI(ABC):
     def __init__(self, keyword):
         self.__url = 'https://api.hh.ru/vacancies'
         self.__headers = {'User-Agent': 'HH-User-Agent'}
-        self.__params = {'text': '', 'page': 0, 'per_page': PER_PAGE, 'area': '113'}
+        self.__params = {'text': '', 'page': 0, 'per_page': PER_PAGE, 'area': AREA}
         self.status:int = 0
         self.__vacancies_data: list = []
-
 
 
         self.__params['page'] = 0
@@ -26,6 +25,14 @@ class GetAPI(ABC):
     @area.setter
     def area(self, data):
         self.__params['area'] = data
+
+    @property
+    def salary(self):
+        return self.__params['salary']
+
+    @salary.setter
+    def salary(self, data):
+         self.__params['salary'] = data
 
 
 
@@ -42,6 +49,7 @@ class GetAPI(ABC):
                 response = requests.get(self.__url, headers=self.__headers, params=self.__params)
                 self.status = response.status_code
                 if self.status == 200:
+
                     break
                 time.sleep(3)
             if self.status != 200:

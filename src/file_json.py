@@ -1,10 +1,13 @@
 from src.file_vacancies import Files_Vacancies
 import json
 import typing
+import os
 from src.vacancy import Vacancy
 
 class FilesJSON(Files_Vacancies):
     """ класс работы  с файлами JSON """
+        # self._path_to_file = os.path.join(PATH_HOME, "data", file_name, ".json")
+
 
 
 
@@ -16,10 +19,11 @@ class FilesJSON(Files_Vacancies):
             if typing.TYPE_CHECKING:
                 from _typeshed import SupportsRead
                 files: SupportsRead[str | bytes]
-            with open(self.file_name, encoding='utf-8') as files:
+            with open(self.file_name + '.json', encoding='utf-8') as files:
                 dict_object = json.load(files)
         except:
-            self.remove()
+            if os.path.exists(self.file_name + '.json'):
+                self.remove()
 
         # Проверка на одинаковые вакансии
 
@@ -54,7 +58,7 @@ class FilesJSON(Files_Vacancies):
             from _typeshed import SupportsWrite
             files: SupportsWrite[str]
         try:
-            with open(self.file_name, 'w', encoding='utf-8' ) as files:
+            with open(self.file_name + '.json', 'w', encoding='utf-8' ) as files:
                 json.dump(dict_object, fp=files, indent=4, ensure_ascii=False)
         except Exception as er:
             return f"Ошибка записи файла; {er}"
@@ -69,11 +73,19 @@ class FilesJSON(Files_Vacancies):
             files: SupportsRead[str | bytes]
 
         try:
-            with open(self.file_name, encoding='utf-8') as files:
+            with open(self.file_name + '.json', encoding='utf-8') as files:
                 data = json.load(files)
         except Exception as er:
             print(f"Ошибка чтения файла: {er}")
             data = []
         return data
-            # из JSON создать  список объектов
-        #del self.vacancies
+
+
+    def remove(self):
+        ''' Удаляет файл '''
+        try:
+            os.remove(self.file_name + ".json")
+        except Exception as er:
+            print(f"Ошибка удаления файла: {er}")
+        else:
+            print("Файл удален")
