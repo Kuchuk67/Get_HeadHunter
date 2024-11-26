@@ -19,7 +19,7 @@
 ### файл config.py
 [Дополнительные настройки](#config) программы и API запросов 
 
-## Описание классов
+## Содержание
 
 * [class Vacancies()](#Vacancies) vacancies.py
 * [class IterVacancies](#IterVacancies) vacancies.py
@@ -30,6 +30,8 @@
 * [class Files_Vacancies(ABC)](#Files_Vacancies)  file_vacancies.py
 * [class FilesJSON(Files_Vacancies)](#FilesJSON)  file_json.py
 * [class Area](#Area)  area.py
+
+## Описание классов
 
 # Vacancies
 Формирует из данных полученных по API  список с объектами вакансий,
@@ -56,7 +58,7 @@
 
 # IterVacancies
 Возвращает следующее объект Вакансию Vacancy.
-Returns: int: Следующая ваканси.
+Returns: int: Следующая вакансии.
 Raises: StopIteration: Если достигнута верхняя граница диапазона.
 
 ---
