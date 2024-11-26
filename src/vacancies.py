@@ -10,15 +10,13 @@ class Vacancies():
 
     @property
     def vacancies(self):
+        """ Возвращает список экземпляров вакансия Vacancу"""
         return self.__vacancies
 
-    @property
-    def len_vacancies(self):
-        return len(self.__vacancies)
 
     def created(self, x: list) -> list:
 
-        """Отдает список объектов с вакансиями"""
+        """Создает список объектов с вакансиями"""
         if self.__vacancies == [] and not x == []:
 
             for vacancy in x:
@@ -38,6 +36,7 @@ class Vacancies():
 
     @vacancies.setter
     def vacancies(self, data):
+        """ Добавляет в список экземпляров вакансию Vacancу"""
         self.__vacancies.append(data)
 
     @vacancies.deleter

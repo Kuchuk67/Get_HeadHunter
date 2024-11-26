@@ -5,7 +5,7 @@ from config import PAGE, PER_PAGE, AREA
 
 class GetAPI(ABC):
     """ отправляет запрос для получения данных API
-    создаст объект: список словарей с данными"""
+    создаст объект: список словарей с данными """
 
     def __init__(self, keyword):
         self.__url = 'https://api.hh.ru/vacancies'
@@ -20,20 +20,23 @@ class GetAPI(ABC):
 
     @property
     def area(self):
+        """ параметр area длф API запроса"""
         return self.__params['area']
 
     @area.setter
     def area(self, data):
+        """ изменение параметра area длф API запроса"""
         self.__params['area'] = data
 
     @property
     def salary(self):
+        """ параметр salary длф API запроса"""
         return self.__params['salary']
 
     @salary.setter
     def salary(self, data):
-         self.__params['salary'] = data
-
+        """ изменение параметра salary длф API запроса"""
+        self.__params['salary'] = data
 
 
 
@@ -43,6 +46,9 @@ class GetAPI(ABC):
 
 
     def connect(self):
+        """ делает API запрас,
+        сохраняет статус-код запроса.
+        если статус 200 возвращает словарь с JSON данными"""
         while self.__params.get('page') != PAGE:
 
             for _ in range(3):

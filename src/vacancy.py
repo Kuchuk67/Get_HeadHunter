@@ -22,6 +22,7 @@ class Vacancy:
 
     @staticmethod
     def valid(data) -> int:
+        """ Проверка на положительные целые числа"""
         if data:
             result:int = data
         else:
@@ -33,60 +34,61 @@ class Vacancy:
 
     @property
     def id_v(self) -> int:
+        """ возвращает id вакансии"""
         return self.__id_v
 
     @property
     def name(self) -> str:
+        """ возвращает имя вакансии"""
         return self.__name
 
     @property
     def salary_from(self):
+        """ возвращает зарплату 'от' вакансии"""
         return self.__salary_from
 
     @property
     def salary_to(self):
+        """ возвращает зарплату 'до' вакансии"""
         return self.__salary_to
 
     @property
     def salary_average(self):
+        """ возвращает среднюю зарплату вакансии"""
         return self.__salary_average
 
     @property
     def currency(self):
+        """ возвращает валюту зарплаты  вакансии"""
         return self.__currency
 
 
 
     @property
     def url(self):
+        """ возвращает урл вакансии"""
         return self.__url
 
     @property
     def additionally(self):
+        """ возвращает словарь пользовательских данных вакансии"""
         return self.__additionally
 
     @property
     def date(self):
+        """ возвращает дату вакансии"""
         return self.__date
 
 
 
 
 
-
-    """def compare_vacancies(self, other):
-        salary_1 = Vacancy.average(self.__salary_from, self.__salary_to)
-        salary_2 = Vacancy.average(other.__salary_from, other.__salary_to)
-        if salary_1 > salary_2:
-            return True
-        return False"""
-
 class CompareVacancies:
-    """Класс, удаляющий определенные символы из строки"""
+    """Класс создает функцию сравнения вакансий по зарплате
+    на вход принимает зкземпляр вакансии
+    Возвращает TRUE если проверяемая вакансия больше по зарплате"""
     def __init__(self, a):
-        """Инициализация символов для удаления"""
         self.a = a
-
 
     @staticmethod
     def average(from_, to_):
