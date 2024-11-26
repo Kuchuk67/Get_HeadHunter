@@ -4,7 +4,7 @@ from config import PATH_HOME
 import os
 
 
-class Files_Vacancies(ABC):
+class FilesVacancies(ABC):
     """ абстрактный класс работы  с файлами
     Принимает имя файла
     Определяет путь и имя файла """
@@ -17,23 +17,23 @@ class Files_Vacancies(ABC):
 
     @property
     def file_name(self):
-        ''' Возвращает абсолютный путь к файлу '''
+        """ Возвращает абсолютный путь к файлу """
         return self._path_to_file
 
 
 
     @abstractmethod
     def save(self,dict_object):
-        ''' Добавляет вакансии в файл '''
+        """ Добавляет вакансии в файл """
         pass
 
 
     @abstractmethod
     def read(self):
-        ''' Читает вакансии из файла '''
+        """ Читает вакансии из файла """
         pass
 
 
     def remove(self):
-        ''' Удаляет файл '''
+        """ Удаляет файл """
         pass

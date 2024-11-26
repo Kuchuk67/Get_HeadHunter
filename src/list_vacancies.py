@@ -1,5 +1,4 @@
 import re
-from src.vacancy import Vacancy
 from src.get_api import GetAPI
 
 class ListVacansies(GetAPI):

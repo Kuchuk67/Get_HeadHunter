@@ -3,8 +3,6 @@ import requests
 import json
 from typing import Any
 
-from pyflakes.checker import counter
-
 from config import PATH_HOME
 import re
 
@@ -19,6 +17,7 @@ class Area:
         self._path_to_file = os.path.join(PATH_HOME, "data", 'area.json')
         self.__url = 'https://api.hh.ru/areas'
         self.__headers = {'User-Agent': 'HH-User-Agent'}
+        self.status:int = 0
 
         if not os.path.exists(os.path.join(PATH_HOME, "data", "area.json")):
             self.load()
@@ -44,7 +43,6 @@ class Area:
 
     def load(self):
         """ загружает регионы и создает файл area.json"""
-
         response = requests.get(self.__url, headers=self.__headers)
         self.status = response.status_code
         if self.status == 200:
@@ -62,9 +60,8 @@ class Area:
         except Exception as er:
              return f"Ошибка записи файла; {er}"
         else:
-             # Area.areas(area)
-             # print(Area.dict_areas)
              return 'Ok'
+
 
     @classmethod
     def id_area(cls, word) -> Any:

@@ -1,10 +1,9 @@
-from src.file_vacancies import Files_Vacancies
+from src.file_vacancies import FilesVacancies
 import json
 import typing
 import os
-from src.vacancy import Vacancy
 
-class FilesJSON(Files_Vacancies):
+class FilesJSON(FilesVacancies):
     """ класс работы  с файлами JSON
     принимает имя файла"""
 
@@ -22,7 +21,7 @@ class FilesJSON(Files_Vacancies):
                 files: SupportsRead[str | bytes]
             with open(self.file_name + '.json', encoding='utf-8') as files:
                 dict_object = json.load(files)
-        except:
+        except Exception:
             if os.path.exists(self.file_name + '.json'):
                 self.remove()
 
@@ -83,7 +82,7 @@ class FilesJSON(Files_Vacancies):
 
 
     def remove(self):
-        ''' Удаляет файл '''
+        """ Удаляет файл """
         try:
             os.remove(self.file_name + ".json")
         except Exception as er:

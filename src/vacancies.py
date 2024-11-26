@@ -1,7 +1,7 @@
 from src.vacancy import Vacancy
 
 
-class Vacancies():
+class Vacancies:
     """Формирует из данных полученных по API  список с объектами вакансий,
 добавляет объекты, сортирует список, удаляет объекты из списка"""
 
@@ -14,9 +14,9 @@ class Vacancies():
         return self.__vacancies
 
 
-    def created(self, x: list) -> list:
+    def created(self, x: list) -> None:
 
-        """Создает список объектов с вакансиями"""
+        """ Создает список объектов с вакансиями"""
         if self.__vacancies == [] and not x == []:
 
             for vacancy in x:
@@ -41,12 +41,12 @@ class Vacancies():
 
     @vacancies.deleter
     def vacancies(self):
-        """Удаляет все вакансии"""
+        """ Удаляет все вакансии"""
         self.__vacancies = []
         # del self.vacancies_data
 
     def vacancy_del(self, id_v) -> bool:
-        """Удаляет  вакансию"""
+        """ Удаляет  вакансию"""
 
         for index, object_vacancy in enumerate(self.vacancies):
             # print(index," - ",object_vacancy.id_v)
@@ -67,7 +67,7 @@ class Vacancies():
 
 
 class IterVacancies:
-    """Возвращает следующее объект Вакансию Vacancy.
+    """ Возвращает следующее объект Вакансию Vacancy.
         Returns:
             int: Следующая ваканси.
         Raises:

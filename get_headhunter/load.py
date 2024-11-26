@@ -1,5 +1,4 @@
 from src.list_vacancies import ListVacansies
-from src.file_json import FilesJSON
 from src.area import Area
 from config import AREA
 from get_headhunter.function import len_vac
@@ -8,8 +7,7 @@ def load(data, f):
 
     while True:
         len_vac(data)
-        print("\n--- ЗАГРУЗКА  СПИСКА ---")
-        print("\033[34m{}".format(" "))
+        print("\n--- ЗАГРУЗКА  СПИСКА ---", "\033[34m{}".format(" "))
         print("1. Загрузить вакансии с HH.RU\n2. Загрузить вакансии из файла")
         print("3. Добавить вакансии в файл")
         print("6. Удалить файл\n8. Удалить список вакансий")
@@ -27,9 +25,7 @@ def load(data, f):
             word = input("\nВведите вакансию: ")
 
             ar = input("\nВведите территорию поиска: ")
-            x = Area()
-            #x.load()
-            #
+            Area()
             q = Area.id_area(ar)
             if q[0] == 'Ok':
                 area_id = q[1]
@@ -45,7 +41,7 @@ def load(data, f):
             while True:
                 try:
                     salary = int(input("\nВведите жалаемую зарплату: "))
-                except:
+                except ValueError:
                     print("Нужно число...")
                 else:
                     api.salary = salary

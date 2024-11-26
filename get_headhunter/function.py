@@ -1,15 +1,13 @@
 from src.vacancies import IterVacancies
-from _datetime import datetime
 from src.vacancy import CompareVacancies
 
 
 def len_vac(data):
-    # if data.vacansies:
     print(f"\n\nВ списке загружено вакансий: {len(data.vacancies)}")
 
 
 def menu(data) -> str:
-    print("\n--- МЕНЮ --- \n")
+    print("\n--- МЕНЮ --- ")
     print("\033[34m{}".format("1. Загрузить/сохранить вакансии"))
     if len(data.vacancies) > 0:
         print("2. Сортировать список по дата\n3. Сортировать список по зарплате")
@@ -22,7 +20,7 @@ def menu(data) -> str:
 
 
 def move(data) -> None:
-    salary_min = 0
+    vac:tuple = ()
     list_for_delete = []
     iter_vacancy = IterVacancies(data.vacancies)
     print("\n--- ПРОСМОТР ---\n")
