@@ -1,5 +1,5 @@
 class Vacancy:
-    '''Класс вакансии. Объект содежит данные по одной вакансии'''
+    """Класс вакансии. Объект содежит данные по одной вакансии"""
     __slots__ = ('__id_v',  '__name', '__salary_from', '__salary_to', '__salary_average', '__currency',  '__url', '__date', '__additionally')
 
     def __init__(self, id_v,  name, salary_from, salary_to, currency,  url, date, additionally):
@@ -86,7 +86,8 @@ class Vacancy:
 class CompareVacancies:
     """Класс создает функцию сравнения вакансий по зарплате
     на вход принимает зкземпляр вакансии
-    Возвращает TRUE если проверяемая вакансия больше по зарплате"""
+    Возвращает TRUE если проверяемая вакансия больше по зарплате
+    Содержит метод подсчета средней зарплаты по вилке зарплат"""
     def __init__(self, a):
         self.a = a
 

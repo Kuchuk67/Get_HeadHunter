@@ -6,6 +6,7 @@ import os
 
 class Files_Vacancies(ABC):
     """ абстрактный класс работы  с файлами
+    Принимает имя файла
     Определяет путь и имя файла """
 
     def __init__(self, file_name:str):

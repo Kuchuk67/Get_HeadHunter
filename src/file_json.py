@@ -5,14 +5,15 @@ import os
 from src.vacancy import Vacancy
 
 class FilesJSON(Files_Vacancies):
-    """ класс работы  с файлами JSON """
-        # self._path_to_file = os.path.join(PATH_HOME, "data", file_name, ".json")
-
+    """ класс работы  с файлами JSON
+    принимает имя файла"""
 
 
 
     def data_json_created(self, list_object):
-        """ Создает из списка объектов Vacansy список словарей для JSON файла"""
+        """ Создает из списка объектов Vacansy список словарей для JSON файла
+        принимает списка объектов Vacansy.
+        Возвращает список словарей с вакансиями """
         dict_object = []
 
         try:

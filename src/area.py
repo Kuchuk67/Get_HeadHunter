@@ -1,6 +1,7 @@
 import os
 import requests
 import json
+from typing import Any
 
 from pyflakes.checker import counter
 
@@ -9,6 +10,7 @@ import re
 
 
 class Area:
+    """ Класс определения id региона"""
     dict_areas = {}
 
     def __init__(self):
@@ -20,6 +22,7 @@ class Area:
 
         if not os.path.exists(os.path.join(PATH_HOME, "data", "area.json")):
             self.load()
+            self.save_to_file()
 
 
 
@@ -27,6 +30,7 @@ class Area:
 
     @classmethod
     def areas(cls, areas):
+        """ Рекурсивный метод для парсинга файла регионов"""
         for area in areas:
             name = area['name']
             id_ = area['id']
@@ -39,6 +43,7 @@ class Area:
 
 
     def load(self):
+        """ загружает регионы и создает файл area.json"""
 
         response = requests.get(self.__url, headers=self.__headers)
         self.status = response.status_code
@@ -50,18 +55,23 @@ class Area:
             return f"Ошибка API запроса: {self.status}"
 
     def save_to_file(self):
-         try:
+        """ Сохраняет файл регионов"""
+        try:
              with open(self._path_to_file, 'w', encoding='utf-8') as files:
                  json.dump(Area.dict_areas, fp=files, indent=4, ensure_ascii=False)
-         except Exception as er:
+        except Exception as er:
              return f"Ошибка записи файла; {er}"
-         else:
+        else:
              # Area.areas(area)
              # print(Area.dict_areas)
              return 'Ok'
 
     @classmethod
-    def id_area(cls, word):
+    def id_area(cls, word) -> Any:
+        """ определение id региона
+        Принимает str название субъекта или города
+        Возвращает кортеж (статус, id, наименование объекта)
+        """
 
         if len(Area.dict_areas) == 0:
             file_name = os.path.join(PATH_HOME, "data", 'area.json')
@@ -94,7 +104,3 @@ class Area:
             status = 'Ничего не найдено'
 
         return status, ares_id.split(), name
-
-
-
-

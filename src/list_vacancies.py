@@ -12,6 +12,9 @@ class ListVacansies(GetAPI):
 
 
     def to_dict(self):
+        """ Формирует из данных полученных по API  список словарей
+        Выбирает только нужные поля данных вакансий
+        Если данные отсутствуют заменяет их нулями или пробелами"""
         vacancies_data = []
         for vacancy in self.data:
 

@@ -28,8 +28,8 @@ def load(data, f):
 
             ar = input("\nВведите территорию поиска: ")
             x = Area()
-            x.load()
-            x.save_to_file()
+            #x.load()
+            #
             q = Area.id_area(ar)
             if q[0] == 'Ok':
                 area_id = q[1]
