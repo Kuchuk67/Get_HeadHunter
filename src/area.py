@@ -11,7 +11,7 @@ class Area:
     """ Класс определения id региона"""
     dict_areas = {}
 
-    def __init__(self):
+    def __init__(self) -> None:
         if not os.path.exists(os.path.join(PATH_HOME, "data")):
             os.mkdir(os.path.join(PATH_HOME, "data"))
         self._path_to_file = os.path.join(PATH_HOME, "data", 'area.json')
@@ -28,7 +28,7 @@ class Area:
 
 
     @classmethod
-    def areas(cls, areas):
+    def areas(cls, areas: dict) -> None:
         """ Рекурсивный метод для парсинга файла регионов"""
         for area in areas:
             name = area['name']
@@ -41,7 +41,7 @@ class Area:
 
 
 
-    def load(self):
+    def load(self) -> str:
         """ загружает регионы и создает файл area.json"""
         response = requests.get(self.__url, headers=self.__headers)
         self.status = response.status_code
@@ -52,7 +52,7 @@ class Area:
         else:
             return f"Ошибка API запроса: {self.status}"
 
-    def save_to_file(self):
+    def save_to_file(self) -> str:
         """ Сохраняет файл регионов"""
         try:
              with open(self._path_to_file, 'w', encoding='utf-8') as files:
@@ -64,7 +64,7 @@ class Area:
 
 
     @classmethod
-    def id_area(cls, word) -> Any:
+    def id_area(cls, word:str) -> Any:
         """ определение id региона
         Принимает str название субъекта или города
         Возвращает кортеж (статус, id, наименование объекта)

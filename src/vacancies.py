@@ -5,11 +5,11 @@ class Vacancies:
     """Формирует из данных полученных по API  список с объектами вакансий,
 добавляет объекты, сортирует список, удаляет объекты из списка"""
 
-    def __init__(self):
-        self.__vacancies = []
+    def __init__(self) -> None:
+        self.__vacancies: list = []
 
     @property
-    def vacancies(self):
+    def vacancies(self) -> list:
         """ Возвращает список экземпляров вакансия Vacancу"""
         return self.__vacancies
 
@@ -35,16 +35,16 @@ class Vacancies:
                     print(f"Вакансия не добавлена: {txt}")
 
     @vacancies.setter
-    def vacancies(self, data):
+    def vacancies(self, data: Vacancy) -> None:
         """ Добавляет в список экземпляров вакансию Vacancу"""
         self.__vacancies.append(data)
 
     @vacancies.deleter
-    def vacancies(self):
+    def vacancies(self) -> None:
         """ Удаляет все вакансии"""
         self.__vacancies = []
 
-    def vacancy_del(self, id_v) -> bool:
+    def vacancy_del(self, id_v: int) -> bool:
         """ Удаляет  вакансию"""
 
         for index, object_vacancy in enumerate(self.vacancies):
@@ -72,11 +72,11 @@ class IterVacancies:
             raise StopIteration: Если достигнута верхняя граница диапазона.
         """
 
-    def __init__(self, vacancies):
+    def __init__(self, vacancies: list) -> None:
         self.vacancies = vacancies
         self.step = 0
 
-    def __next__(self):
+    def __next__(self) -> str:
         try:
             vacancy = self.vacancies[self.step]
         except IndexError:
@@ -90,5 +90,5 @@ class IterVacancies:
                                       f"{vacancy.additionally['schedule']}{adress}", self.step - 1 )
         return return_value
 
-    def __iter__(self):
+    def __iter__(self) -> object:
         return self

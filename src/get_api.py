@@ -7,7 +7,7 @@ class GetAPI(ABC):
     """ отправляет запрос для получения данных API
     создаст объект: список словарей с данными """
 
-    def __init__(self, keyword):
+    def __init__(self, keyword: str) -> None:
         self.__url = 'https://api.hh.ru/vacancies'
         self.__headers = {'User-Agent': 'HH-User-Agent'}
         self.__params = {'text': '', 'page': 0, 'per_page': PER_PAGE, 'area': AREA}
@@ -19,33 +19,33 @@ class GetAPI(ABC):
         self.__params['text'] = keyword
 
     @property
-    def area(self):
+    def area(self) -> str:
         """ параметр area длф API запроса"""
         return self.__params['area']
 
     @area.setter
-    def area(self, data):
+    def area(self, data: str) -> None:
         """ изменение параметра area длф API запроса"""
         self.__params['area'] = data
 
     @property
-    def salary(self):
+    def salary(self) -> int:
         """ параметр salary длф API запроса"""
         return self.__params['salary']
 
     @salary.setter
-    def salary(self, data):
+    def salary(self, data: int) -> None:
         """ изменение параметра salary длф API запроса"""
         self.__params['salary'] = data
 
 
 
     @abstractmethod
-    def to_dict(self):
+    def to_dict(self) -> None:
         pass
 
 
-    def connect(self):
+    def connect(self) -> int:
         """ делает API запрас,
         сохраняет статус-код запроса.
         если статус 200 возвращает словарь с JSON данными"""
@@ -71,11 +71,11 @@ class GetAPI(ABC):
 
 
     @property
-    def data(self):
+    def data(self) -> list:
         """ метод выводит полученные по API вакансии"""
         return self.__vacancies_data
 
     @data.deleter
-    def data(self):
+    def data(self) -> None:
         self.__vacancies_data = []
 

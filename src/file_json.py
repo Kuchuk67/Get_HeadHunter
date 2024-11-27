@@ -9,7 +9,7 @@ class FilesJSON(FilesVacancies):
 
 
 
-    def data_json_created(self, list_object):
+    def data_json_created(self, list_object: list) -> dict:
         """ Создает из списка объектов Vacansy список словарей для JSON файла
         принимает списка объектов Vacansy.
         Возвращает список словарей с вакансиями """
@@ -50,7 +50,7 @@ class FilesJSON(FilesVacancies):
         return dict_object
 
 
-    def save(self, dict_object) -> str:
+    def save(self, dict_object: dict) -> str:
         """ Добавляет вакансии в файл """
 
 
@@ -66,7 +66,7 @@ class FilesJSON(FilesVacancies):
             return 'Ok'
 
 
-    def read(self):
+    def read(self) -> str:
         """ Читает вакансии из файла """
         if typing.TYPE_CHECKING:
             from _typeshed import SupportsRead
@@ -81,7 +81,7 @@ class FilesJSON(FilesVacancies):
         return data
 
 
-    def remove(self):
+    def remove(self) -> None:
         """ Удаляет файл """
         try:
             os.remove(self.file_name + ".json")

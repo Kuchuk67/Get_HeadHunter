@@ -1,12 +1,12 @@
-from src.vacancies import IterVacancies
+from src.vacancies import IterVacancies, Vacancies
 from src.vacancy import CompareVacancies
 
 
-def len_vac(data):
+def len_vac(data: Vacancies) -> None:
     print(f"\n\nВ списке загружено вакансий: {len(data.vacancies)}")
 
 
-def menu(data) -> str:
+def menu(data: Vacancies) -> str:
     print("\n--- МЕНЮ --- ")
     print("\033[34m{}".format("1. Загрузить/сохранить вакансии"))
     if len(data.vacancies) > 0:
@@ -19,7 +19,7 @@ def menu(data) -> str:
     return user_input
 
 
-def move(data) -> None:
+def move(data: Vacancies) -> None:
     vac:tuple = ()
     list_for_delete = []
     iter_vacancy = IterVacancies(data.vacancies)
