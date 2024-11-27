@@ -43,13 +43,11 @@ class Vacancies:
     def vacancies(self):
         """ Удаляет все вакансии"""
         self.__vacancies = []
-        # del self.vacancies_data
 
     def vacancy_del(self, id_v) -> bool:
         """ Удаляет  вакансию"""
 
         for index, object_vacancy in enumerate(self.vacancies):
-            # print(index," - ",object_vacancy.id_v)
             if int(object_vacancy.id_v) == int(id_v):
                 del self.vacancies[index]
                 return True

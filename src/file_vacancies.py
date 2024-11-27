@@ -12,13 +12,13 @@ class FilesVacancies(ABC):
     def __init__(self, file_name:str):
         if not os.path.exists(os.path.join(PATH_HOME, "data")):
             os.mkdir(os.path.join(PATH_HOME, "data"))
-        self._path_to_file = os.path.join(PATH_HOME, "data", file_name)
+        self.__path_to_file = os.path.join(PATH_HOME, "data", file_name)
         super().__init__()
 
     @property
     def file_name(self):
         """ Возвращает абсолютный путь к файлу """
-        return self._path_to_file
+        return self.__path_to_file
 
 
 

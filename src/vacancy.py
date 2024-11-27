@@ -93,6 +93,7 @@ class CompareVacancies:
 
     @staticmethod
     def average(from_, to_):
+        """ статический метод подсчета средней зарплаты по вилке зарплат """
         if from_ == 0:
             from_ = to_
         if to_ == 0:
