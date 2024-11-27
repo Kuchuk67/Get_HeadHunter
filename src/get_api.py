@@ -1,51 +1,81 @@
 import requests
 import time
-#from pyflakes.checker import counter
 from abc import ABC, abstractmethod
-
+from config import PAGE, PER_PAGE, AREA
 
 class GetAPI(ABC):
-    """абстрактный класс для работы с API сервиса с вакансиями.
-    создаст объект: список словарей с данными"""
+    """ отправляет запрос для получения данных API
+    создаст объект: список словарей с данными """
 
-    def __init__(self):
-        self.url = 'https://api.hh.ru/vacancies'
-        self.headers = {'User-Agent': 'HH-User-Agent'}
-        self.params = {'text': '', 'page': 0, 'per_page': 2}
+    def __init__(self, keyword: str) -> None:
+        self.__url = 'https://api.hh.ru/vacancies'
+        self.__headers = {'User-Agent': 'HH-User-Agent'}
+        self.__params = {'text': '', 'page': 0, 'per_page': PER_PAGE, 'area': AREA}
         self.status:int = 0
-        self.__vacancies: list = []
+        self.__vacancies_data: list = []
 
 
-    def load_vacancies(self, keyword):
-        self.params['page'] = 0
-        self.params['text'] = keyword
-        while self.params.get('page') != 2:
+        self.__params['page'] = 0
+        self.__params['text'] = keyword
+
+    @property
+    def area(self) -> str:
+        """ параметр area длф API запроса"""
+        return self.__params['area']
+
+    @area.setter
+    def area(self, data: str) -> None:
+        """ изменение параметра area длф API запроса"""
+        self.__params['area'] = data
+
+    @property
+    def salary(self) -> int:
+        """ параметр salary длф API запроса"""
+        return self.__params['salary']
+
+    @salary.setter
+    def salary(self, data: int) -> None:
+        """ изменение параметра salary длф API запроса"""
+        self.__params['salary'] = data
+
+
+
+    @abstractmethod
+    def to_dict(self) -> None:
+        pass
+
+
+    def connect(self) -> int:
+        """ делает API запрас,
+        сохраняет статус-код запроса.
+        если статус 200 возвращает словарь с JSON данными"""
+        while self.__params.get('page') != PAGE:
+
             for _ in range(3):
-                response = requests.get(self.url, headers=self.headers, params=self.params)
+                response = requests.get(self.__url, headers=self.__headers, params=self.__params)
                 self.status = response.status_code
                 if self.status == 200:
+
                     break
                 time.sleep(3)
             if self.status != 200:
-                self.__vacancies = []
+                self.__vacancies_data = []
                 break
 
             vacancies_page = response.json()['items']
-            self.__vacancies.extend(vacancies_page)
+            self.__vacancies_data.extend(vacancies_page)
 
-            self.params['page'] += 1
+            self.__params['page'] += 1
 
-    @abstractmethod
-    def vacancies(self):
-        """ Метод который будет выводить вакансии в нужном виде и формате"""
-        pass
+        return self.status
+
 
     @property
-    def vacancies_data(self):
+    def data(self) -> list:
         """ метод выводит полученные по API вакансии"""
-        return self.__vacancies
+        return self.__vacancies_data
 
-    @vacancies_data.deleter
-    def vacancies_data(self):
-        self.__vacancies = []
+    @data.deleter
+    def data(self) -> None:
+        self.__vacancies_data = []
 

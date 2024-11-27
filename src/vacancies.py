@@ -1,88 +1,94 @@
-import re
-
-from src.get_api import GetAPI
+from src.vacancy import Vacancy
 
 
-class Vacancy():
-    '''Класс вакансии. Объект содежит данные по одной вакансии'''
-    def __init__(self,name, salary, address, url, snippet):
-        self.__name = name
-        self.__salary = salary
-        self.__address = address
-        self.__url = url
-        self.__snippet = snippet
+class Vacancies:
+    """Формирует из данных полученных по API  список с объектами вакансий,
+добавляет объекты, сортирует список, удаляет объекты из списка"""
+
+    def __init__(self) -> None:
+        self.__vacancies: list = []
 
     @property
-    def name(self):
-        return self.__name
-
-    @property
-    def salary(self):
-        return self.__salary
-
-    @property
-    def address(self):
-        return self.__address
-
-    @property
-    def url(self):
-        return self.__url
-
-    @property
-    def snippet(self):
-        if self.__snippet:
-            snippet = re.sub('(<(/?[^>]+)>)', '', self.__snippet)
-        else:
-            snippet = ''
-        return snippet
-
-
-class Vacancies(GetAPI):
-    """ Содержит загруженные по API вакансии"""
-    def __init__(self, keyword):
-        self.__vacancies = []
-        super().__init__()
-        # print(self.vacancies_data)
-        super().load_vacancies(keyword)
-
-    def load_vacancies(self, keyword):
-        pass
-    
-    @property
-    def vacancies(self):
-        '''Отдает список объектов с вакансиями'''
-        if self.__vacancies == [] and not self.vacancies_data == []:
-            for vacancy in self.vacancies_data:
-                if vacancy.get('address'):
-                    address = f"{vacancy.get('address').get('city')}, {vacancy.get('address').get('street')}"
-                else: address = ""
-                self.__vacancies.append( Vacancy(vacancy.get('name'),
-                                                 vacancy.get('salary').get('to'),
-                                                 address,
-                                                 vacancy.get('url'),
-                                                 vacancy.get('snippet').get('requirement')))
+    def vacancies(self) -> list:
+        """ Возвращает список экземпляров вакансия Vacancу"""
         return self.__vacancies
 
+
+    def created(self, x: list) -> None:
+
+        """ Создает список объектов с вакансиями"""
+        if self.__vacancies == [] and not x == []:
+
+            for vacancy in x:
+
+                try:
+                    self.__vacancies.append(Vacancy(vacancy.get('_Vacancy__id_v'),
+                                                    vacancy.get('_Vacancy__name'),
+                                                    vacancy.get('_Vacancy__salary_from'),
+                                                    vacancy.get('_Vacancy__salary_to'),
+                                                    vacancy.get('_Vacancy__currency'),
+                                                    vacancy.get('_Vacancy__url'),
+                                                    vacancy.get('_Vacancy__date'),
+                                                    vacancy.get('_Vacancy__additionally')
+                                                    ))
+                except ValueError as txt:
+                    print(f"Вакансия не добавлена: {txt}")
+
+    @vacancies.setter
+    def vacancies(self, data: Vacancy) -> None:
+        """ Добавляет в список экземпляров вакансию Vacancу"""
+        self.__vacancies.append(data)
+
     @vacancies.deleter
-    def vacancies(self):
-        '''Удаляет все вакансии'''
+    def vacancies(self) -> None:
+        """ Удаляет все вакансии"""
         self.__vacancies = []
-        del self.vacancies_data
+
+    def vacancy_del(self, id_v: int) -> bool:
+        """ Удаляет  вакансию"""
+
+        for index, object_vacancy in enumerate(self.vacancies):
+            if int(object_vacancy.id_v) == int(id_v):
+                del self.vacancies[index]
+                return True
+        return False
+
+    def sort_date(self) -> None:
+        """ Сортирует список вакансий по дате """
+        sort_vacancies = sorted(self.vacancies, key=lambda x: x.date, reverse=True)
+        self.__vacancies = sort_vacancies
+
+    def sort_salary(self) -> None:
+        """ Сортирует список вакансий по зарплате """
+        sort_vacancies = sorted(self.vacancies, key=lambda x: x.salary_average, reverse=True)
+        self.__vacancies = sort_vacancies
 
 
+class IterVacancies:
+    """ Возвращает следующее объект Вакансию Vacancy.
+        Returns:
+            int: Следующая ваканси.
+        Raises:
+            raise StopIteration: Если достигнута верхняя граница диапазона.
+        """
 
+    def __init__(self, vacancies: list) -> None:
+        self.vacancies = vacancies
+        self.step = 0
 
+    def __next__(self) -> tuple[int, str, int]:
+        try:
+            vacancy = self.vacancies[self.step]
+        except IndexError:
+            raise StopIteration
 
+        self.step += 1
+        adress = ""
+        if vacancy.additionally['address']:
+            adress = f", адрес: {vacancy.additionally['address']}"
+        return_value = (vacancy.id_v, f"{vacancy.name}, зарплата: {vacancy.salary_average}, "
+                                      f"{vacancy.additionally['schedule']}{adress}", self.step - 1 )
+        return return_value
 
-x = Vacancies('Бухгалтер')
-
-x.load_vacancies('Бухгалтер')
-
-
-print(x.vacancies_data)
-print(x.vacancies)
-for v in x.vacancies:
-    print(v.name, v.snippet)
-
-del x.vacancies
-print(x.vacancies)
+    def __iter__(self) -> object:
+        return self
