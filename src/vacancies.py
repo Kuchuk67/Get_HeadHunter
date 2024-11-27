@@ -76,7 +76,7 @@ class IterVacancies:
         self.vacancies = vacancies
         self.step = 0
 
-    def __next__(self) -> str:
+    def __next__(self) -> tuple[int, str, int]:
         try:
             vacancy = self.vacancies[self.step]
         except IndexError:

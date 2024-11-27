@@ -66,7 +66,7 @@ class FilesJSON(FilesVacancies):
             return 'Ok'
 
 
-    def read(self) -> str:
+    def read(self) -> list:
         """ Читает вакансии из файла """
         if typing.TYPE_CHECKING:
             from _typeshed import SupportsRead
