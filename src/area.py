@@ -46,6 +46,7 @@ class Area:
         response = requests.get(self.__url, headers=self.__headers)
         self.status = response.status_code
         if self.status == 200:
+            print("успешная загрузка регионов")
             area = response.json()
             Area.areas(area)
             return 'Ok'
@@ -57,6 +58,7 @@ class Area:
         try:
              with open(self._path_to_file, 'w', encoding='utf-8') as files:
                  json.dump(Area.dict_areas, fp=files, indent=4, ensure_ascii=False)
+                 print("Записали новыый файл")
         except Exception as er:
              return f"Ошибка записи файла; {er}"
         else:

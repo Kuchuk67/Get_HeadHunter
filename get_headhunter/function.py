@@ -29,7 +29,10 @@ def move(data: Vacancies) -> None:
     compare_vac = None
     while True:
         if repeat_ == 0:
-            vac = next(iter_vacancy)
+            try:
+                vac = next(iter_vacancy)
+            except StopIteration:
+                break
             #if compare:
                 #if compare(data.vacancies[vac[2]]):
                     #continue
