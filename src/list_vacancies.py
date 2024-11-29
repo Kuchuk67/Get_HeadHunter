@@ -1,5 +1,4 @@
 import re
-from src.vacancy import Vacancy
 from src.get_api import GetAPI
 
 class ListVacansies(GetAPI):
@@ -11,7 +10,10 @@ class ListVacansies(GetAPI):
 
 
 
-    def to_dict(self):
+    def to_dict(self) -> list:
+        """ Формирует из данных полученных по API  список словарей
+        Выбирает только нужные поля данных вакансий
+        Если данные отсутствуют заменяет их нулями или пробелами"""
         vacancies_data = []
         for vacancy in self.data:
 

@@ -1,20 +1,22 @@
 from src.vacancy import Vacancy
 
 
-class Vacancies():
+class Vacancies:
     """Формирует из данных полученных по API  список с объектами вакансий,
 добавляет объекты, сортирует список, удаляет объекты из списка"""
 
-    def __init__(self):
-        self.__vacancies = []
+    def __init__(self) -> None:
+        self.__vacancies: list = []
 
     @property
-    def vacancies(self):
+    def vacancies(self) -> list:
+        """ Возвращает список экземпляров вакансия Vacancу"""
         return self.__vacancies
 
-    def created(self, x: list) -> list:
 
-        """Отдает список объектов с вакансиями"""
+    def created(self, x: list) -> None:
+
+        """ Создает список объектов с вакансиями"""
         if self.__vacancies == [] and not x == []:
 
             for vacancy in x:
@@ -33,20 +35,20 @@ class Vacancies():
                     print(f"Вакансия не добавлена: {txt}")
 
     @vacancies.setter
-    def vacancies(self, data):
+    def vacancies(self, data: Vacancy) -> None:
+        """ Добавляет в список экземпляров вакансию Vacancу"""
         self.__vacancies.append(data)
 
     @vacancies.deleter
-    def vacancies(self):
-        """Удаляет все вакансии"""
+    def vacancies(self) -> None:
+        """ Удаляет все вакансии"""
         self.__vacancies = []
-        # del self.vacancies_data
 
-    def vacancy_del(self, id_v) -> bool:
-        """Удаляет  вакансию"""
+    def vacancy_del(self, id_v: int) -> bool:
+        """ Удаляет  вакансию"""
+
         for index, object_vacancy in enumerate(self.vacancies):
-            # print(index," - ",object_vacancy.id_v)
-            if int(object_vacancy.id_v) == id_v:
+            if int(object_vacancy.id_v) == int(id_v):
                 del self.vacancies[index]
                 return True
         return False
@@ -63,28 +65,30 @@ class Vacancies():
 
 
 class IterVacancies:
-    """Возвращает следующее объект Вакансию Vacancy.
+    """ Возвращает следующее объект Вакансию Vacancy.
         Returns:
             int: Следующая ваканси.
         Raises:
             raise StopIteration: Если достигнута верхняя граница диапазона.
         """
 
-    def __init__(self, vacancies):
+    def __init__(self, vacancies: list) -> None:
         self.vacancies = vacancies
         self.step = 0
 
-    def __next__(self):
+    def __next__(self) -> tuple[int, str, int]:
         try:
             vacancy = self.vacancies[self.step]
         except IndexError:
             raise StopIteration
 
         self.step += 1
-
+        adress = ""
+        if vacancy.additionally['address']:
+            adress = f", адрес: {vacancy.additionally['address']}"
         return_value = (vacancy.id_v, f"{vacancy.name}, зарплата: {vacancy.salary_average}, "
-                                      f"{vacancy.additionally['schedule']}, адрес: {vacancy.additionally['address']}")
+                                      f"{vacancy.additionally['schedule']}{adress}", self.step - 1 )
         return return_value
 
-    def __iter__(self):
+    def __iter__(self) -> object:
         return self

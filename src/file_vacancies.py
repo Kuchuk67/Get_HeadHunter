@@ -4,38 +4,36 @@ from config import PATH_HOME
 import os
 
 
-class Files_Vacancies(ABC):
+class FilesVacancies(ABC):
     """ абстрактный класс работы  с файлами
+    Принимает имя файла
     Определяет путь и имя файла """
 
-    def __init__(self, file_name:str):
+    def __init__(self, file_name:str) -> None:
         if not os.path.exists(os.path.join(PATH_HOME, "data")):
             os.mkdir(os.path.join(PATH_HOME, "data"))
-        self._path_to_file = os.path.join(PATH_HOME, "data", file_name)
+        self.__path_to_file = os.path.join(PATH_HOME, "data", file_name)
         super().__init__()
 
     @property
-    def file_name(self):
-        ''' Возвращает абсолютный путь к файлу '''
-        return self._path_to_file
+    def file_name(self) -> str:
+        """ Возвращает абсолютный путь к файлу """
+        return self.__path_to_file
 
 
 
     @abstractmethod
-    def save(self,dict_object):
-        ''' Добавляет вакансии в файл '''
+    def save(self,dict_object) -> str:
+        """ Добавляет вакансии в файл """
         pass
 
 
     @abstractmethod
-    def read(self):
-        ''' Читает вакансии из файла '''
+    def read(self) -> str:
+        """ Читает вакансии из файла """
         pass
 
 
-    def remove(self):
-        ''' Удаляет файл '''
-        try:
-            os.remove(self.file_name)
-        except:
-            pass
+    def remove(self) -> None:
+        """ Удаляет файл """
+        pass

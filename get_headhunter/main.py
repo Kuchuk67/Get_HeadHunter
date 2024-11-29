@@ -1,62 +1,39 @@
-from src.vacancies import Vacancies, IterVacancies
+from src.vacancies import Vacancies
 from src.file_json import FilesJSON
-from src.list_vacancies import ListVacansies
-from src.get_api import GetAPI
-from src.vacancy import CompareVacancies
+from function import len_vac, menu, move
+from load import load
+from config import FILE_NAME
 
 def main():
 
 
-    #api = GetAPI('бухгалтер')
-    #print(api.data)
+    print("\nПрограмма работы со списком вакансий")
+    data = Vacancies()
+    f = FilesJSON(FILE_NAME)
 
-    #print(api.status)
-    #api = ListVacansies('бухгалтер')
-    #x = api.connect()
-    #print(x)
+    while True:
+        len_vac(data)
+        user_input = menu(data)
 
-    #vacansies_data = api.to_dict()
-
-    #print(vacansies_data)
-
-    #x =   Vacancies()
-    #x.created(vacansies_data)
-
-    f = FilesJSON('112sd.txt')
-
-    #f.remove()
-    #q:list = f.data_json_created(x.vacancies)
-    #w = f.save(q)
-
-    vacansies_data = f.read()
-    #print(vacansies_data)
-    x = Vacancies()
-    x.created(vacansies_data)
-
-    q: list = f.data_json_created(x.vacancies)
-    w = f.save(q)
-
-    print(w)
-    #for v in x.vacancies:
-     #   print(v.__dict__)
-
-
-    """f = IterVacancies(x.vacancies)
-    for _ in range(10):
-
-        print(next(f))
-
-    compare = CompareVacancies(x.vacancies[0])
-    print(compare(x.vacancies[1]))
-    print(compare(x.vacancies[2]))
-    print(compare(x.vacancies[3]))"""
-
-    #print(CompareVacancies(x.vacancies[0], x.vacancies[1]))
-
-
-
-
-
+        if user_input == '1': # Загрузить вакансии
+            load(data, f)
+        elif user_input == '2' and len(data.vacancies) > 0: # Сортировать список по дата
+            data.sort_date()
+        elif user_input == '3' and len(data.vacancies) > 0: # Сортировать список по зарплате
+            data.sort_salary()
+        elif user_input == '4' and len(data.vacancies) > 0: #  Просмотр списка вакансий
+            move(data)
+        elif user_input == '6':  # Изменить имя файла
+            print(f"\nТекущее имя файла: {f.file_name}.тип")
+            file_ = input("Для работы введите имя файла (расширение подставляется автоматически): ")
+            if file_.isalnum():
+                f = FilesJSON(file_)
+            else:
+                print("Недопустимый тип файла")
+        elif user_input == '8' and len(data.vacancies) > 0: # Удалить список вакансий
+            del data.vacancies
+        elif user_input == '0': # Выход
+            break
 
 if __name__ == "__main__":
     main()
