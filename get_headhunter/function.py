@@ -26,11 +26,15 @@ def move(data: Vacancies) -> None:
     print("\n--- ПРОСМОТР ---\n")
     repeat_ = 0
     compare = None
+    compare_vac = None
     while True:
         if repeat_ == 0:
             vac = next(iter_vacancy)
-            if compare:
-                if compare(data.vacancies[vac[2]]):
+            #if compare:
+                #if compare(data.vacancies[vac[2]]):
+                    #continue
+            if compare_vac:
+                if compare_vac < data.vacancies[vac[2]]:
                     continue
 
         print("\033[33m\033[40m\033[1m{}".format(vac[1]))
@@ -62,6 +66,7 @@ def move(data: Vacancies) -> None:
         if user_data == '4':  # Показывать с зарплатой выше
             compare = CompareVacancies(data.vacancies[vac[2]])
             salary_min = data.vacancies[vac[2]].salary_average
+            compare_vac = data.vacancies[vac[2]]
             print("Показываем вакансии с зарплатой выше ", salary_min)
             repeat_ = 1
 

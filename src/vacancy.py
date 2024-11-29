@@ -79,6 +79,17 @@ class Vacancy:
         """ возвращает дату вакансии"""
         return self.__date
 
+    def __lt__(self, other) -> bool: #  для оператора меньше <
+        # TRUE для other > self
+        compare = CompareVacancies(self)
+        return compare(other)
+
+    def __gt__(self, other) -> bool:  #  для    оператора    больше >
+        # TRUE для  self  > self other
+        compare = CompareVacancies(other)
+        return compare(self)
+
+
 
 
 
